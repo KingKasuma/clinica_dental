@@ -1,1 +1,230 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
+body{
+  padding-top: 50px;
+}
+
+/*font-family: 'Open Sans', sans-serif;*/
+
+/* Estilos globales (Global styles) y ancho de imagenes*/
+body{
+  background: #ccc image-url('odonto1.jpg') no-repeat center center fixed;
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  text-align: center;
+}
+
+body img{
+  width: 100%;
+}
+/*El @ significa que estamos diciendo nuestra propia regla de css*/
+/*Especifica una fuente y especifica la URL donde se lo encuentra*/
+@font-face{
+  font-family: 'Aller Regular';
+  src: url('../fonts/aller.regular.ttf');
+}
+@font-face{
+  font-family: 'Aller Bold';
+  src: url('../fonts/aller.bold.ttf');
+}
+@font-face{
+  font-family: 'Aller Light';
+  src: url('../fonts/aller.light.ttf');
+}
+
+/*Tipografia*/
+h1{
+  font-family: 'Aller Bold', sans-serif;
+  font-size: 3.5em;
+}
+
+h2, h3{
+  font-family: 'Aller Regular', sans-serif;
+}
+
+h2{
+  font-size: 3em;
+}
+h3{
+  font-size: 2em;
+}
+h4,p{
+  font-family: 'Aller Light', sans-serif;
+  font-size: 1.3em;
+}
+
+/*Secciones*/
+/** Barra de Navegacion**/
+.navbar-brand{
+  padding: 4px 15px;
+  width: 260px;
+}
+
+.navbar-inverse{
+  background-color: #fff;
+  border-bottom-width: medium;
+  border-color: #ffc507;
+}
+
+.navbar-inverse .navbar-toggle{
+  background: #770000;
+}
+
+.navbar-inverse .navbar-nav>li>a{
+  color: #770000;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover{
+  color: #ffc507;
+  background-color: transparent;
+  text-transform: uppercase;
+}
+
+.btn-default{
+  background-color: #770000;
+  border-color: transparent;
+  color: #fff;
+  font-size: 2em;
+  margin-top: 15px;
+}
+
+.btn-default:hover{
+  color: #770000;
+}
+
+.texto-cotiza-der{
+  margin-top: 20px;
+}
+
+/* Frase Celebre Rene Descartes*/
+#frase-wrapper{
+  background-color: rgba(119, 0, 0, 0.5);
+  color: #fff;
+  margin-top: 60px;
+}
+
+#frase-wrapper footer{
+  color: #000;
+}
+
+/** Nosotros **/
+
+#nosotros-wrapper{
+  background:#ccc image-url('concrete_seamless.png') repeat center center fixed ;
+  border-bottom: 10px solid rgba(0, 0, 0, 0.1);
+  border-top: 10px solid rgba(0, 0, 0, 0.1);
+  color: #770000;
+  padding-bottom: 126px;
+}
+
+#nosotros-wrapper h2{
+  padding-top: 60px;
+}
+
+#nosotros-wrapper hr{
+  border-top: 1px solid #770000;
+  width: 100px;
+}
+
+#nosotro-wrapper .container{
+  padding-top: 40px;
+}
+
+/** Contacto **/
+
+#contacto-wrapper{
+  color: #ccc;
+  background: image-url('callcat.jpg') no-repeat center center fixed;
+  margin-top: -20px;
+  padding-top: 40px;
+}
+
+#contacto-wrapper hr{
+  border-top: 1px solid #ccc;
+  width: 100px;
+}
+
+.datos{
+  padding-bottom: 30px;
+}
+
+.btn-inverse{
+  color: #fff;
+  background-color: #770000;
+}
+
+.btn-inverse:hover{
+  color: #770000;
+  background-color: #ccc;
+}
+
+/** Pie de pagina**/
+
+#footer-wrapper{
+  background-color: #770000;
+  color: #ccc;
+  text-align: left;
+  margin-top: 15px;
+  border-top-width: 15px;
+  padding-bottom: 10px;
+  margin-bottom: -20px;
+}
+
+/** Iconos de redes sociales en barra de navegacion**/
+
+.iconos{
+  margin-top: -9px;
+  bottom: -3px;
+}
+
+.navbar-inverse .navbar-nav>.open>a:focus{
+  color: #770000;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>.open>a:hover{
+  color: #770000;
+  background-color: transparent;
+}
+
+/** Menu Desplegable Compartir con Redes Sociales**/
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a{
+  color: #770000;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover{
+  color: #ffc507;
+}
+
+.color-table{
+  background-color: white;
+}
+.color1{
+   border: 4px #F48525 solid;
+   border-radius: 40px;
+   background-color: #FEE1C8;
+   color: #756969;
+ }
+ .margen{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.margen-izquierda{
+  margin-left: 200px;
+}
+.color{
+  border: 4px #1C8D76 solid;
+  background-color: #31C6AF;
+  border-radius: 40px;
+  color: white;
+}
+
+.jumbotron{
+  background-color: #1896D2;
+}

@@ -1,2 +1,144 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<!-- seccion del encabezado-->
+<section id="constructora-wrapper">
+  <div class="container description-empresa">
+    <div class="row">
+      <!-- columna izquierda-->
+      <div class="col-md-6 texto-cotiza-izq" style="background-color: rgba(119, 0, 0, 0.3);">
+        <h1>Clinica Dental Maldonado</h1><br>
+        <p style="color: #fff;">
+          Llevando la felicidad a travez de una sonrisa brillante y bien cuidada
+        </p>
+        <h3 style="color: #fff;">Especialistas en ortodoncia fija y removible, cirugia avanzada o estomatologica e implantologia avanzada</h3>
+      </div>
+      <!-- columna derecha-->
+      <div class="col-md-6 texto-cotiza-der">
+        <div class="cotiza">
+          <div>
+            <%= image_tag("dientes1.jpg", alt: "Dientes", title: "Dientes blancos", width:"20", height: "230" )%>
+            <a href="https://goo.gl/forms/EUJIGxhCn4M2JO9u2" target="_blank" class="btn btn-default">Doctor Responde</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Frase celebre sobre el ingenio-->
+<section id="frase-wrapper">
+  <div class="container frase">
+    <div class="row">
+      <h3>"No basta tener un buen ingenio, lo principal es aplicarlo bien"</h3>
+      <footer>
+        <h3>-René Descartes</h3>
+      </footer>
+    </div>
+  </div>
+</section>
+
+<!-- seccion de la filosofia de la empresa -->
+<section id="nosotros-wrapper">
+  <h2>Nosotros</h2>
+  <hr>
+  <div class="container nosotros">
+    <div class="row">
+      <div class="col-md-4 col-md-4-nosotros">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
+            </span>
+        <h3>Misión</h3>
+        <p>Somos una Clínica Dental conformada por profesionales especialistas en todas las áreas de la odontología, comprometidos con los valores humanos y morales, brindando un servicio integral a las personas de todas las edades. Mediante un excelente servicio y una atención personalizada, que aseguran la solución de cualquier trauma relacionado con la salud bucal.</p>
+      </div>
+      <div class="col-md-4 col-md-4-nosotros">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-binoculars fa-stack-1x fa-inverse"></i>
+            </span>
+        <h3>Visión</h3>
+        <p>Ser reconocida a nivel nacional y mejorar la calidad del servicio odontológico, direccionando esfuerzos, orientando recursos y aplicando tecnologías con la mayor rentabilidad posible, para establecernos como un espacio de excelencia que ofrezca una asistencia dental eficiente y asertiva..</p>
+      </div>
+      <div class="col-md-4 col-md-4-nosotros">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-star fa-stack-1x fa-inverse"></i>
+            </span>
+        <h3>Valores</h3>
+        <p>Responsabilidad<br>Compromiso<br>Integridad<br>Inovación<br>Eficiencia<br>Respeto<br>Calidad</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCION DEL CONTACTO -->
+<section id="contacto-wrapper">
+  <h2>Contacto</h2>
+  <hr>
+  <!-- Columna lado izquierdo para los datos de la empresa -->
+  <div class="container contacto">
+    <div class="row">
+      <div class="col-md-4 col-md-4-datos">
+        <h3><u>Nuestros Datos</u></h3>
+        <div class="datos">
+          <h4><i class="fa fa-facebook-square fa-2x"></i> /HIGIENEJARDINERIA</h4>
+          <h4><i class="fa fa-mobile fa-2x"></i> 79762727 - 60358578</h4>
+          <h4><i class="fa fa-phone-square fa-2x"></i> 4233905</h4>
+          <h4><i class="fa fa-envelope-square fa-2x"></i> Higine.Plus.Cbba@gmail.com</h4>
+          <h4><i class="fa fa-map-marker fa-2x"></i> Nicaragua y 9 de abril #867<br>Zona Las Cuadras</h4>
+        </div>
+      </div>
+
+      <!-- Columna lado derecho de 8 espacios para la forma -->
+      <div class="col-md-8 col-md-8-forma">
+        <h3><u>Forma de Contacto</u></h3>
+        <div class="datos">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="yourname">Nombre*</label>
+                <div class="col-md-8 col-md-8-forma">
+                  <input id="yourname" name="yourname" type="text" placeholder="Escribe tu nombre" class="form-control input-md" requiered>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="correoelectronico">Correo Electrónico*</label>
+                <div class="col-md-8 col-md-8-forma">
+                  <input id="correoelectronico" name="correoelectronico" type="text" placeholder="Escribe tu correo" class="form-control input-md" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="numerotelefono">Teléfono*</label>
+                <div class="col-md-8 col-md-8-forma">
+                  <input id="numerotelefono" name="numerotelefono" type="text" placeholder="Escribe tu numero de telefono" class="form-control input-md">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="textarea">Mensaje</label>
+                <div class="col-ms-8 col-md-8-forma">
+                  <textarea class="form-control" id="textarea" name="textarea" placeholder="Escribe tu mensaje. Puedes pedirnos una cotizacion o preguntar tus dudas" required></textarea>
+                  <p>*Campos Obligatorios</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="singlebutton"></label>
+                <div class="col-md-8 col-md-8-forma">
+                  <button id="singlebutton" name="singlebutton" class="btn btn-inverse">Enviar</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Este es el pie de pagina-->
+<section id="footer-wrapper">
+  <div class="container">
+    <div class="row">
+      <footer>
+        <p>© GC CLINICA DENTAL MALDONADO | 2017</p>
+      </footer>
+    </div>
+  </div>
+</section>
