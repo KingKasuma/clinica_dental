@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @employee.nombre %>
+</p>
+
+<p>
+  <strong>Apellido paterno:</strong>
+  <%= @employee.apellido_paterno %>
+</p>
+
+<p>
+  <strong>Apellido materno:</strong>
+  <%= @employee.apellido_materno %>
+</p>
+
+<p>
+  <strong>Fecha nacimiento:</strong>
+  <%= @employee.fecha_nacimiento %>
+</p>
+
+<p>
+  <strong>Genero:</strong>
+  <%= @employee.genero %>
+</p>
+
+<p>
+  <strong>Nacionalidad:</strong>
+  <%= @employee.nacionalidad %>
+</p>
+
+<p>
+  <strong>Profesion:</strong>
+  <%= @employee.profesion %>
+</p>
+
+<p>
+  <strong>Especialidad:</strong>
+  <%= @employee.especialidad %>
+</p>
+
+<p>
+  <strong>Fecha alta:</strong>
+  <%= @employee.fecha_alta %>
+</p>
+
+<p>
+  <strong>Fecha baja:</strong>
+  <%= @employee.fecha_baja %>
+</p>
+
+<p>
+  <strong>Ci:</strong>
+  <%= @employee.CI %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @employee.email %>
+</p>
+
+<p>
+  <strong>Sucursal:</strong>
+  <%= @employee.sucursal %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @employee.role %>
+</p>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>
