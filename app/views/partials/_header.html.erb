@@ -29,7 +29,8 @@
         </li>
 
 
-
+        <% if user_signed_in? %>
+        <% if current_user.employee.nil? %>
         <li class="dropdown iconos">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
           <ul class="dropdown-menu" role="menu">
@@ -38,8 +39,8 @@
             <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
           </ul>
         </li>
-
-
+        <% else %>
+          <% if current_user.has_rol("administrador") %>
           <li class="dropdown iconos">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
             <ul class="dropdown-menu" role="menu">
@@ -48,7 +49,8 @@
               <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
             </ul>
           </li>
-
+          <% end %>
+          <% if current_user.has_rol("Doctor Encargado") %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
@@ -58,7 +60,16 @@
                 <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
               </ul>
             </li>
+          <% end %>
+        <% end %>
 
+
+        <li><%= link_to "Cerrar Sesion", destroy_user_session_path,method: :delete %></i></li>
+        <% else %>
+          <li>
+            <%= link_to "Iniciar Sesion" , new_user_session_path%>
+          </li>
+        <% end %>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
