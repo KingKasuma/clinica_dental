@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @prosthesis.nombre %>
+</p>
+
+<p>
+  <strong>Protesis:</strong>
+  <%= @prosthesis.protesis %>
+</p>
+
+<p>
+  <strong>Costo:</strong>
+  <%= @prosthesis.costo %>
+</p>
+
+<p>
+  <strong>Treatment:</strong>
+  <%= @prosthesis.treatment %>
+</p>
+
+<p>
+  <strong>Medical history:</strong>
+  <%= @prosthesis.medical_history %>
+</p>
+
+<%= link_to 'Edit', edit_prosthesis_path(@prosthesis) %> |
+<%= link_to 'Back', prostheses_path %>

@@ -1,0 +1,13 @@
+  <div class="field">
+    <%= f.label :nombre, 'Nombre de la protesis'%>
+    <%= f.text_field :nombre%>
+  </div>
+  <div class="field">
+    <%= f.label :protesis, 'Tipo de la protesis'%>
+    <%= f.text_field :protesis%>
+  </div>
+  <div class="field">
+    <%= f.label :costo, 'Costo de la protesis'%>
+    <%= f.text_field :costo%>
+  </div>
+  <%= f.link_to_remove "Eliminar esta protesis" %>

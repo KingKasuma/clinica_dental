@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Medical Histories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tratamiento medico</th>
+      <th>Medicamentos actuales</th>
+      <th>Enfermo corazon</th>
+      <th>Desmayos frecuencia</th>
+      <th>Intervenido quirurgicamente</th>
+      <th>Complicaciones hemorragias</th>
+      <th>Observaciones</th>
+      <th>Patient</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @medical_histories.each do |medical_history| %>
+      <tr>
+        <td><%= medical_history.tratamiento_medico %></td>
+        <td><%= medical_history.medicamentos_actuales %></td>
+        <td><%= medical_history.enfermo_corazon %></td>
+        <td><%= medical_history.desmayos_frecuencia %></td>
+        <td><%= medical_history.intervenido_quirurgicamente %></td>
+        <td><%= medical_history.complicaciones_hemorragias %></td>
+        <td><%= medical_history.observaciones %></td>
+        <td><%= medical_history.patient %></td>
+        <td><%= link_to 'Show', medical_history %></td>
+        <td><%= link_to 'Edit', edit_medical_history_path(medical_history) %></td>
+        <td><%= link_to 'Destroy', medical_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Medical history', new_medical_history_path %>

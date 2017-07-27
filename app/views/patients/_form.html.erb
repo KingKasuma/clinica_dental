@@ -41,7 +41,7 @@
   </div>
   <div class="field">
     <%= f.label :tiempo_disponible %><br>
-    <%= f.text_field :tiempo_disponible %>
+    <%= f.select(:tiempo_disponible, options_for_select([['Mañana','Mañana'],['Tarde','Tarde'],['Noche','Noche']]),{prompt: "Seleccione un genero"})%>
   </div>
   <div class="field">
     <%= f.label :telefono %><br>

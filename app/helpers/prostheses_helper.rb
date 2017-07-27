@@ -1,0 +1,2 @@
+module ProsthesesHelper
+end

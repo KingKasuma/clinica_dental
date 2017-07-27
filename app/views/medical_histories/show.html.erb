@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tratamiento medico:</strong>
+  <%= @medical_history.tratamiento_medico %>
+</p>
+
+<p>
+  <strong>Medicamentos actuales:</strong>
+  <%= @medical_history.medicamentos_actuales %>
+</p>
+
+<p>
+  <strong>Enfermo corazon:</strong>
+  <%= @medical_history.enfermo_corazon %>
+</p>
+
+<p>
+  <strong>Desmayos frecuencia:</strong>
+  <%= @medical_history.desmayos_frecuencia %>
+</p>
+
+<p>
+  <strong>Intervenido quirurgicamente:</strong>
+  <%= @medical_history.intervenido_quirurgicamente %>
+</p>
+
+<p>
+  <strong>Complicaciones hemorragias:</strong>
+  <%= @medical_history.complicaciones_hemorragias %>
+</p>
+
+<p>
+  <strong>Observaciones:</strong>
+  <%= @medical_history.observaciones %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @medical_history.patient.nombres %>
+</p>
+
+<%= link_to 'Editar', edit_medical_history_path(@medical_history) %> |
+<%= link_to 'Atras', patients_path %>

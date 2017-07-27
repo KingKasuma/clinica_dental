@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Prostheses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Protesis</th>
+      <th>Costo</th>
+      <th>Treatment</th>
+      <th>Medical history</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prostheses.each do |prosthesis| %>
+      <tr>
+        <td><%= prosthesis.nombre %></td>
+        <td><%= prosthesis.protesis %></td>
+        <td><%= prosthesis.costo %></td>
+        <td><%= prosthesis.treatment %></td>
+        <td><%= prosthesis.medical_history %></td>
+        <td><%= link_to 'Show', prosthesis %></td>
+        <td><%= link_to 'Edit', edit_prosthesis_path(prosthesis) %></td>
+        <td><%= link_to 'Destroy', prosthesis, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Prosthesis', new_prosthesis_path %>

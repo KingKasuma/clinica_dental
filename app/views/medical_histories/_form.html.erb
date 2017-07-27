@@ -1,0 +1,65 @@
+<%= nested_form_for(@medical_history) do |f| %>
+  <% if @medical_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@medical_history.errors.count, "error") %> prohibited this medical_history from being saved:</h2>
+
+      <ul>
+      <% @medical_history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+
+<!--Formulario de historial clinico -->
+  <% unless @patient.nil? %>
+    <%= f.hidden_field :patient_id, value: @patient.id%>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :esta_en_tratamiento_medico?%><br>
+    <%= f.check_box :tratamiento_medico %>
+  </div>
+  <div class="field">
+    <%= f.label :Toma_medicamentos_actualmente? %><br>
+    <%= f.check_box :medicamentos_actuales %>
+  </div>
+  <div class="field">
+    <%= f.label :es_enfermo_del_corazon? %><br>
+    <%= f.check_box :enfermo_corazon %>
+  </div>
+  <div class="field">
+    <%= f.label :sufre_desmayos_con_frecuencia? %><br>
+    <%= f.check_box :desmayos_frecuencia %>
+  </div>
+  <div class="field">
+    <%= f.label :ha_sido_intervenido_quirurgicamente? %><br>
+    <%= f.check_box :intervenido_quirurgicamente %>
+  </div>
+  <div class="field">
+    <%= f.label :ha_tenido_complicaciones_o_hemorragias_anormales_despues_de_una_extraccion_o_una_herida? %><br>
+    <%= f.check_box :complicaciones_hemorragias %>
+  </div>
+  <div class="field">
+    <%= f.label :observaciones %><br>
+    <%= f.text_area :observaciones %>
+  </div>
+<!--Fin del formulario de historial clinico-->
+
+  <!--Formulario anidado de tratamientos-->
+  <fieldset id="tratamientos">
+    <!--el fields_for esta llamando a la vista parcial de tratamientos que esta dentro la misma carpeta-->
+    <%= f.fields_for :treatments %>
+    <p><%= f.link_to_add "Agregar un tratamiento", :treatments %></p>
+  </fieldset>
+  <!--Formulario anidado de tratamientos-->
+
+
+  <div class="actions">
+    <%= f.submit 'Guardar' , class: "btn btn-primary" %>
+  </div>
+<% end %>

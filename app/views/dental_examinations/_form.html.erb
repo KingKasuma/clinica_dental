@@ -1,0 +1,25 @@
+<%= form_for(@dental_examination) do |f| %>
+  <% if @dental_examination.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dental_examination.errors.count, "error") %> prohibited this dental_examination from being saved:</h2>
+
+      <ul>
+      <% @dental_examination.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :posicion %><br>
+    <%= f.text_field :posicion %>
+  </div>
+  <div class="field">
+    <%= f.label :numero_diente %><br>
+    <%= f.number_field :numero_diente %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

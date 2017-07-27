@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Posicion:</strong>
+  <%= @dental_examination.posicion %>
+</p>
+
+<p>
+  <strong>Numero diente:</strong>
+  <%= @dental_examination.numero_diente %>
+</p>
+
+<%= link_to 'Edit', edit_dental_examination_path(@dental_examination) %> |
+<%= link_to 'Back', dental_examinations_path %>

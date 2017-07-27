@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :reservations
+  resources :prostheses
+  resources :treatments
+  resources :dental_examinations
+  resources :medical_histories
   resources :patients
   resources :employees
   resources :roles

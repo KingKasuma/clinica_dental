@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @treatment.nombre %>
+</p>
+
+<p>
+  <strong>Tratamiento:</strong>
+  <%= @treatment.tratamiento %>
+</p>
+
+<p>
+  <strong>Costo:</strong>
+  <%= @treatment.costo %>
+</p>
+
+<p>
+  <strong>Diagnostico presuntivo:</strong>
+  <%= @treatment.diagnostico_presuntivo %>
+</p>
+
+<p>
+  <strong>Diagnostico definitivo:</strong>
+  <%= @treatment.diagnostico_definitivo %>
+</p>
+
+<p>
+  <strong>Rayos x:</strong>
+  <%= @treatment.rayos_x %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @treatment.employee %>
+</p>
+
+<p>
+  <strong>Medical history:</strong>
+  <%= @treatment.medical_history %>
+</p>
+
+<p>
+  <strong>Dental examination:</strong>
+  <%= @treatment.dental_examination %>
+</p>
+
+<%= link_to 'Edit', edit_treatment_path(@treatment) %> |
+<%= link_to 'Back', treatments_path %>

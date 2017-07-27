@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Dental Examinations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Posicion</th>
+      <th>Numero diente</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dental_examinations.each do |dental_examination| %>
+      <tr>
+        <td><%= dental_examination.posicion %></td>
+        <td><%= dental_examination.numero_diente %></td>
+        <td><%= link_to 'Show', dental_examination %></td>
+        <td><%= link_to 'Edit', edit_dental_examination_path(dental_examination) %></td>
+        <td><%= link_to 'Destroy', dental_examination, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dental examination', new_dental_examination_path %>

@@ -1,47 +1,70 @@
-<p id="notice"><%= notice %></p>
+<h1>Pacientes</h1>
+<div class="container">
+  <div class="row jumbotron">
 
-<h1>Listing Patients</h1>
+    <!--Buscador-->
+    <div class="col-sm-3 well">
+      <%= form_tag patients_path, method: :get, class: "form-horizontal" do%>
+        <div class="form-group">
+          <div class="col-md-10 col-md-offset-1">
+              <%= text_field_tag :nombres, params[:nombres], class: "form-control", placeholder: "Nombres" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-10 col-md-offset-1">
+              <%= text_field_tag :apellido_paterno, params[:apellido_paterno], class: "form-control", placeholder: "Apellido Paterno" %>
+          </div>
+        </div>
+        <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+      <% end %>
+    </div>
+    <!--Buscador-->
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombres</th>
-      <th>Apellido paterno</th>
-      <th>Apellido materno</th>
-      <th>Edad</th>
-      <th>Ocupacion</th>
-      <th>Procedencia</th>
-      <th>Direccion</th>
-      <th>Tiempo disponible</th>
-      <th>Telefono</th>
-      <th>Email</th>
-      <th>Ci</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <!--Espacio en blanco en medio de ambos-->
+    <div class="col-sm-1">
 
-  <tbody>
-    <% @patients.each do |patient| %>
-      <tr>
-        <td><%= patient.nombres %></td>
-        <td><%= patient.apellido_paterno %></td>
-        <td><%= patient.apellido_materno %></td>
-        <td><%= patient.edad %></td>
-        <td><%= patient.ocupacion %></td>
-        <td><%= patient.procedencia %></td>
-        <td><%= patient.direccion %></td>
-        <td><%= patient.tiempo_disponible %></td>
-        <td><%= patient.telefono %></td>
-        <td><%= patient.email %></td>
-        <td><%= patient.CI %></td>
-        <td><%= link_to 'Show', patient %></td>
-        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </div>
+    <!--Espacio en blanco en medio de ambos-->
 
-<br>
+    <!--Lista de Pacientes-->
+    <div class="col-sm-8 well">
+      <div class="table-responsive">
+        <table class="table table-hover" id="transactions">
+          <thead>
+            <tr>
+              <th>Nombres</th>
+              <th>Apellido Paterno</th>
+              <th>Apellido Materno</th>
+              <th class="text-right">Telefono</th>
+              <th class="text-right">Historial Clinico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @patients.each do |patient| %>
+              <tr>
+                <td class="date"><%= link_to patient.nombres, patient%></td>
+                <td class="concept"><%= patient.apellido_paterno %></td>
+                <td class="concept"><%= patient.apellido_materno %></td>
+                <td class="category"><%= patient.telefono %></td>
+                <td class="text-right">
+                  <% if patient.medical_history.nil? %>
+                    <%= link_to 'Nuevo Historial clinico', {:controller => "medical_histories",:action => "new", :id => patient.id}, class: "btn btn-success active" %><!-- true -->
+                  <% else %>
+                    <%= link_to 'Historial Clinico', {:controller => 'medical_histories', :action => 'show', :id => patient.medical_history.id}, class: "btn btn-warning active"%>
+                  <% end %>
 
-<%= link_to 'New Patient', new_patient_path %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% unless @patients.nil? %>
+        <%= link_to 'Nuevo Paciente', new_patient_path, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <!--Lista de Pacientes-->
+
+  </div>
+</div>
