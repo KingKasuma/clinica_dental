@@ -28,7 +28,14 @@ class PatientsController < ApplicationController
 
     respond_to do |format|
       if @patient.save
-        format.html { redirect_to @patient, notice: 'Patient was successfully created.' }
+        user = User.new
+        user.email = @patient.email
+        user.password = @patient.CI
+        user.password_confirmation = @patient.CI
+        user.patient_id = @patient.id
+        user.username = @patient.nombres
+        user.save
+        format.html { redirect_to @patient, notice: 'Paciente creado correctamente.' }
         format.json { render :show, status: :created, location: @patient }
       else
         format.html { render :new }
@@ -42,7 +49,13 @@ class PatientsController < ApplicationController
   def update
     respond_to do |format|
       if @patient.update(patient_params)
-        format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
+        user = User.find(@patient.user)
+        user.email = @patient.email
+        user.password = @patient.CI
+        user.password_confirmation = @patient.CI
+        user.username = @patient.nombres
+        user.save
+        format.html { redirect_to @patient, notice: 'Paciente modificado.' }
         format.json { render :show, status: :ok, location: @patient }
       else
         format.html { render :edit }
@@ -56,7 +69,7 @@ class PatientsController < ApplicationController
   def destroy
     @patient.destroy
     respond_to do |format|
-      format.html { redirect_to patients_url, notice: 'Patient was successfully destroyed.' }
+      format.html { redirect_to patients_url, notice: 'Paciente eliminado correctamente.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +82,6 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:nombres, :apellido_paterno, :apellido_materno, :edad, :ocupacion, :procedencia, :direccion, :tiempo_disponible, :telefono, :email, :CI)
+      params.require(:patient).permit(:nombres, :apellido_paterno, :apellido_materno, :edad, :ocupacion, :procedencia, :direccion, :tiempo_disponible, :telefono, :email, :CI, :role_id)
     end
 end

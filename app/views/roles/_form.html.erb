@@ -1,25 +1,40 @@
-<%= form_for(@role) do |f| %>
-  <% if @role.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
+<% name ||= "Crear" %>
+<h1><%= name %> Rol</h1>
+<%= form_for(@role, :html => { class: "form-horizontal", role: "form" } ) do |f| %>
+<% if @role.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@role.errors.count, "error") %>
+    prohibited this role from being saved:</h2>
 
-      <ul>
-      <% @role.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @role.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
+<div class="form-group">
+  <div class="control-label col-md-2">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
   </div>
-  <div class="field">
+  <div class="col-md-10">
+    <%= f.text_field :nombre, class: "form-control", placeholder: "Nombre del rol", autofocus: true %>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="control-label col-md-2">
     <%= f.label :descripcion %><br>
-    <%= f.text_area :descripcion %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="col-md-10">
+    <%= f.text_area :descripcion, class: "form-control", rows: 6, placeholder: "Descripcion del rol" %>
   </div>
+</div>
+
+<div class="form-group">
+  <div class="col-md-offset-1 col-md-11">
+    <%= f.submit "Guardar" , class: "btn btn-primary btn-lg"  %>
+  </div>
+</div>
 <% end %>

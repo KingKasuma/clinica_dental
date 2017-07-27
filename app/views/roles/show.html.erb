@@ -1,14 +1,11 @@
-<p id="notice"><%= notice %></p>
+<div class="list-group">
+  <h1 class="list-group-item-heading"><strong>Nombre: </strong> <%= @role.nombre %> </h1>
+  <p class="list-group-item-text"> <strong>Descripcion: </strong> <%= @role.descripcion %> </p>
+</div>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @role.nombre %>
-</p>
+<div class="">
 
-<p>
-  <strong>Descripcion:</strong>
-  <%= @role.descripcion %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+<%= link_to 'Editar', edit_role_path(@role), class: "btn btn-warning" %> |
+<%= link_to 'Atras', roles_path, class: "btn btn-primary" %>

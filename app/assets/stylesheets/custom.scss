@@ -4,7 +4,7 @@
 @import "font-awesome";
 
 body{
-  padding-top: 50px;
+  padding-top: 80px;
 }
 
 /*font-family: 'Open Sans', sans-serif;*/
@@ -226,7 +226,13 @@ h4,p{
 }
 
 .jumbotron{
-  background-color: #1896D2;
+  background-color: #c664cb;
+}
+
+.well{
+  background-color: #9579a2;
+  border-radius: 80px;
+  border-color: #4d0b5d;
 }
 
 //Estilo para los mensajes

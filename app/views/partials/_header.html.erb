@@ -30,27 +30,21 @@
 
 
         <% if user_signed_in? %>
-        <% if current_user.employee.nil? %>
+        <!--Administrador-->
+        <% if current_user.employee.nil?  && current_user.patient.nil?%>
         <li class="dropdown iconos">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/reservations"><i class="fa fa-calendar fa-2x"></i> Reservacion </a></li>
-            <li><a href="/work_pays"><i class="fa fa-book fa-2x"></i> Saldo de consulta </a></li>
+            <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
+            <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
+            <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>
             <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
           </ul>
         </li>
+        <!--Administrador-->
         <% else %>
-          <% if current_user.has_rol("administrador") %>
-          <li class="dropdown iconos">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
-              <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
-              <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
-            </ul>
-          </li>
-          <% end %>
-          <% if current_user.has_rol("Doctor Encargado") %>
+          <!--Doctor-->
+          <% if current_user.has_rol("Doctor") %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
@@ -60,7 +54,20 @@
                 <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
               </ul>
             </li>
+            <!--Doctor-->
           <% end %>
+
+          <!--Paciente-->
+          <% if current_user.has_rol("Paciente") %>
+          <li class="dropdown iconos">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
+            <ul class="dropdown-menu" role="menu">              
+              <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
+            </ul>
+          </li>
+          <% end %>
+          <!--Paciente-->
+
         <% end %>
 
 

@@ -1,73 +1,84 @@
-<%= form_for(@employee) do |f| %>
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+<div class="container well">
+  <%= form_for(@employee , :html => {class: "form-horizontal", role:"form"}) do |f| %>
+    <% if @employee.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
-      <ul>
-      <% @employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @employee.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :nombre %><br>
+      </div>
+      <div class="col-md-10">
+          <%= f.text_field :nombre , class: "form-control"%>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :apellido_paterno %><br>
+      <%= f.text_field :apellido_paterno %>
+    </div>
+    <div class="field">
+      <%= f.label :apellido_materno %><br>
+      <%= f.text_field :apellido_materno %>
+    </div>
+    <div class="field">
+      <%= f.label :fecha_nacimiento %><br>
+      <%= f.date_select :fecha_nacimiento %>
+    </div>
+    <div class="field">
+      <%= f.label :genero %><br>
+      <%= f.select(:genero, options_for_select([['Masculino','Masculino'],['Femenino','Femenino']]),{prompt: "Seleccione un genero"})%>
+    </div>
+    <div class="field">
+      <%= f.label :nacionalidad %><br>
+      <%= f.text_field :nacionalidad %>
+    </div>
+    <div class="field">
+      <%= f.label :profesion %><br>
+      <%= f.text_field :profesion %>
+    </div>
+    <div class="field">
+      <%= f.label :especialidad %><br>
+      <%= f.text_area :especialidad %>
+    </div>
+    <div class="field">
+      <%= f.label :fecha_alta %><br>
+      <%= f.date_select :fecha_alta %>
+    </div>
+    <div class="field">
+      <%= f.label :fecha_baja %><br>
+      <%= f.date_select :fecha_baja %>
+    </div>
+    <div class="field">
+      <%= f.label :CI %><br>
+      <%= f.text_field :CI %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :sucursal %><br>
+      <%= f.number_field :sucursal %>
+    </div>
+    <div class="field">
+      <%= f.label :role_id %><br>
+      <%= f.collection_select(:role_id, Role.all, :id, :nombre, {:prompt=>'Seleccione'})%>
+    </div>
+    <div class="field">
+      <%= f.label :cargo %><br>
+      <%= f.select(:cargo, options_for_select([['Jefe','Jefe'],['Doctor','Doctor'],['Pasante','Pasante']]),{prompt: "Seleccione un genero"})%>
+    </div>
+    <div class="actions">
+      <%= f.submit "Guardar" %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :apellido_paterno %><br>
-    <%= f.text_field :apellido_paterno %>
-  </div>
-  <div class="field">
-    <%= f.label :apellido_materno %><br>
-    <%= f.text_field :apellido_materno %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha_nacimiento %><br>
-    <%= f.date_select :fecha_nacimiento %>
-  </div>
-  <div class="field">
-    <%= f.label :genero %><br>
-    <%= f.text_field :genero %>
-  </div>
-  <div class="field">
-    <%= f.label :nacionalidad %><br>
-    <%= f.text_field :nacionalidad %>
-  </div>
-  <div class="field">
-    <%= f.label :profesion %><br>
-    <%= f.text_field :profesion %>
-  </div>
-  <div class="field">
-    <%= f.label :especialidad %><br>
-    <%= f.text_area :especialidad %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha_alta %><br>
-    <%= f.date_select :fecha_alta %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha_baja %><br>
-    <%= f.date_select :fecha_baja %>
-  </div>
-  <div class="field">
-    <%= f.label :CI %><br>
-    <%= f.text_field :CI %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :sucursal %><br>
-    <%= f.number_field :sucursal %>
-  </div>
-  <div class="field">
-    <%= f.label :role_id %><br>
-    <%= f.text_field :role_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

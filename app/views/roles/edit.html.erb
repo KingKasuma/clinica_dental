@@ -1,6 +1,9 @@
-<h1>Editing Role</h1>
 
-<%= render 'form' %>
+<div class="container well">
+  <%= render 'form', name: "Editar" %>
+</div>
 
-<%= link_to 'Show', @role %> |
-<%= link_to 'Back', roles_path %>
+<div class="container" style="padding-bottom:40px;">
+  <%= link_to 'Mostrar', @role, class: "btn btn-success btn-lg" %>
+  <%= link_to 'Atras', roles_path, class: "btn btn-warning btn-lg" %>
+</div>

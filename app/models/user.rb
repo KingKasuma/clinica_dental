@@ -9,9 +9,18 @@ class User < ActiveRecord::Base
   def has_rol(rol)
     rol.downcase!
     resp = false
-    if self.employee.role.nombre.downcase == rol
-      resp = true
+    unless self.employee.nil?
+      if self.employee.role.nombre.downcase == rol
+        resp = true
+      end
     end
+    
+    unless self.patient.nil?
+      if self.patient.role.nombre.downcase == rol
+        resp = true
+      end
+    end
+
     resp
   end
 end

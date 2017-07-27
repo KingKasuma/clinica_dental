@@ -49,13 +49,16 @@
   </div>
   <div class="field">
     <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
   <div class="field">
     <%= f.label :CI %><br>
     <%= f.text_field :CI %>
   </div>
+  <div class="field">
+    <%= f.hidden_field :role_id, value: 1 %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar"%>
   </div>
 <% end %>

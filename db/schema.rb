@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725102201) do
+ActiveRecord::Schema.define(version: 20170726143740) do
 
   create_table "employees", force: :cascade do |t|
     t.string   "nombre",           limit: 255
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170725102201) do
     t.integer  "role_id",          limit: 4
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "cargo",            limit: 255
   end
 
   add_index "employees", ["role_id"], name: "index_employees_on_role_id", using: :btree
@@ -48,7 +49,10 @@ ActiveRecord::Schema.define(version: 20170725102201) do
     t.string   "CI",                limit: 255
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "role_id",           limit: 4
   end
+
+  add_index "patients", ["role_id"], name: "index_patients_on_role_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "nombre",      limit: 255
@@ -81,6 +85,7 @@ ActiveRecord::Schema.define(version: 20170725102201) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "employees", "roles"
+  add_foreign_key "patients", "roles"
   add_foreign_key "users", "employees"
   add_foreign_key "users", "patients"
 end
