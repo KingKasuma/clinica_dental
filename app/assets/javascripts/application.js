@@ -14,9 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require bootstrap-sprockets
-<<<<<<< HEAD
 //= require jquery_nested_form
 //= require turbolinks
-=======
->>>>>>> user-management-module
 //= require_tree .

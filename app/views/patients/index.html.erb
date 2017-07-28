@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <h1>Pacientes</h1>
 <div class="container">
   <div class="row jumbotron">
@@ -68,50 +67,3 @@
     <!--Lista de Pacientes-->
 
   </div>
-=======
-<div class="container well">
-    <h1>Lista de Pacientes</h1>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Nombres</th>
-                <th>Apellido paterno</th>
-                <th>Apellido materno</th>
-                <th colspan="3"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @patients.each do |patient| %>
-                <tr>
-                  <td><%= patient.nombres %></td>
-                  <td><%= patient.apellido_paterno %></td>
-                  <td><%= patient.apellido_materno %></td>
-                  <% if current_user.has_rol("Doctor")%>
-                    <td><%= link_to 'Mostrar', patient, class: "btn btn-success" %></td>
-                    <td><%= link_to 'Editar', edit_patient_path(patient), class: "btn btn-warning" %></td>
-                  <% end %>
-                  <% if current_user.has_rol("Secretaria") %>
-                    <td><%= link_to 'Mostrar', patient, class: "btn btn-success" %></td>
-                  <% end %>
-                  <% if current_user.employee.nil? && current_user.patient.nil? %>
-                    <td><%= link_to 'Mostrar', patient, class: "btn btn-success" %></td>
-                    <td><%= link_to 'Editar', edit_patient_path(patient), class: "btn btn-warning" %></td>
-                    <td><%= link_to 'Eliminar', patient, method: :delete, data: { confirm: 'Estas seguro?' }, class: "btn btn-danger" %></td>
-                  <% end %>
-
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="container">
-            <%= link_to 'Nuevo Paciente', new_patient_path, class: "btn btn-primary" %>
-        </div>
-      </div>
-    </div>
->>>>>>> user-management-module
-</div>
