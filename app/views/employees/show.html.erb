@@ -1,76 +1,28 @@
-<p>
-  <strong>Nombre:</strong>
-  <%= @employee.nombre %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <div class="list-group">
+        <li class="list-group-item list-group-item-success"><strong>Nombre:</strong><%= @employee.nombre %></li>
+        <li class="list-group-item list-group-item-success"><strong>Apellido Paterno:</strong><%= @employee.apellido_paterno %></li>
+        <li class="list-group-item list-group-item-success"><strong>Apellido Materno:</strong><%= @employee.apellido_materno %></li>
+        <li class="list-group-item list-group-item-success"><strong>Fecha de Nacimiento:</strong><%= @employee.fecha_nacimiento %></li>
+        <li class="list-group-item list-group-item-success"><strong>Genero:</strong><%= @employee.genero %></li>
+        <li class="list-group-item list-group-item-success"><strong>Nacionalidad:</strong><%= @employee.nacionalidad %></li>
+        <li class="list-group-item list-group-item-success"><strong>Profesion:</strong><%= @employee.profesion %></li>
+        <li class="list-group-item list-group-item-success"><strong>Especialidad:</strong><%= @employee.especialidad %></li>
+        <li class="list-group-item list-group-item-success"><strong>Fecha alta:</strong><%= @employee.fecha_alta %></li>
+        <li class="list-group-item list-group-item-success"><strong>Fecha baja:</strong><%= @employee.fecha_baja %></li>
+        <li class="list-group-item list-group-item-success"><strong>CI:</strong><%= @employee.CI %></li>
+        <li class="list-group-item list-group-item-success"><strong>Email:</strong><%= @employee.email %></li>
+        <li class="list-group-item list-group-item-success"><strong>Sucursal:</strong><%= @employee.sucursal %></li>
+        <li class="list-group-item list-group-item-success"><strong>Rol:</strong><%= @employee.role.nombre %></li>
+        <li class="list-group-item list-group-item-success"><strong>Cargo:</strong><%= @employee.cargo %></li>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Apellido paterno:</strong>
-  <%= @employee.apellido_paterno %>
-</p>
-
-<p>
-  <strong>Apellido materno:</strong>
-  <%= @employee.apellido_materno %>
-</p>
-
-<p>
-  <strong>Fecha nacimiento:</strong>
-  <%= @employee.fecha_nacimiento %>
-</p>
-
-<p>
-  <strong>Genero:</strong>
-  <%= @employee.genero %>
-</p>
-
-<p>
-  <strong>Nacionalidad:</strong>
-  <%= @employee.nacionalidad %>
-</p>
-
-<p>
-  <strong>Profesion:</strong>
-  <%= @employee.profesion %>
-</p>
-
-<p>
-  <strong>Especialidad:</strong>
-  <%= @employee.especialidad %>
-</p>
-
-<p>
-  <strong>Fecha alta:</strong>
-  <%= @employee.fecha_alta %>
-</p>
-
-<p>
-  <strong>Fecha baja:</strong>
-  <%= @employee.fecha_baja %>
-</p>
-
-<p>
-  <strong>Ci:</strong>
-  <%= @employee.CI %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @employee.email %>
-</p>
-
-<p>
-  <strong>Sucursal:</strong>
-  <%= @employee.sucursal %>
-</p>
-
-<p>
-  <strong>Role:</strong>
-  <%= @employee.role.nombre %>
-</p>
-<p>
-  <strong>Cargo:</strong>
-  <%= @employee.cargo %>
-</p>
-
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<div class="container" style="padding-bottom:50px;">
+  <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-default" %> |
+  <%= link_to 'Atras', employees_path, class: "btn btn-default" %>
+</div>

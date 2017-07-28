@@ -1,6 +1,7 @@
-<h1>Editing Employee</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @employee %> |
-<%= link_to 'Back', employees_path %>
+<div class="container well">
+    <%= render 'form' , name: "Editar"%>
+</div>
+<div class="container" style="padding-bottom:40px;">
+  <%= link_to 'Mostrar', @employee, class: "btn btn-default btn-lg" %> |
+  <%= link_to 'Atras', employees_path, class: "btn btn-default btn-lg" %>
+</div>

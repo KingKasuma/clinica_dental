@@ -16,10 +16,9 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
-
 gem 'devise'
-
 gem 'pry-rails'
+gem 'jquery-ui-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

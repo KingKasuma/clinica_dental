@@ -1,6 +1,8 @@
-<h1>Editar Paciente</h1>
+<div class="container well">
+    <%= render 'form', name: "Editar" %>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Mostra', @patient %> |
-<%= link_to 'Atras', patients_path %>
+<div class="container" style="padding-bottom:20px;">
+  <%= link_to 'Mostrar', @patient, class: "btn btn-default" %> |
+  <%= link_to 'Atras', patients_path, class: "btn btn-default" %>
+</div>
