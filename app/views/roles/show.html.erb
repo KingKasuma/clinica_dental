@@ -1,11 +1,10 @@
-<div class="list-group">
-  <h1 class="list-group-item-heading"><strong>Nombre: </strong> <%= @role.nombre %> </h1>
-  <p class="list-group-item-text"> <strong>Descripcion: </strong> <%= @role.descripcion %> </p>
+<div class="well container">
+  <div class="list-group">
+    <h1 class="list-group-item-heading"><strong>Nombre: </strong> <%= @role.nombre %> </h1>
+    <p class="list-group-item-text"> <strong>Descripcion: </strong> <%= @role.descripcion %> </p>
+  </div>
 </div>
 
-<div class="">
-
-</div>
 
 <%= link_to 'Editar', edit_role_path(@role), class: "btn btn-warning" %> |
 <%= link_to 'Atras', roles_path, class: "btn btn-primary" %>

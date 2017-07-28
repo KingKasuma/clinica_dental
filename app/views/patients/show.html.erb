@@ -1,57 +1,24 @@
-<p>
-  <strong>Nombres:</strong>
-  <%= @patient.nombres %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <div class="list-group">
+        <li class="list-group-item list-group-item-success"><strong>Nombres:</strong><%= @patient.nombres %></li>
+        <li class="list-group-item list-group-item-success"><strong>Apellido Paterno:</strong><%= @patient.apellido_paterno %></li>
+        <li class="list-group-item list-group-item-success"><strong>Apellido Materno:</strong><%= @patient.apellido_materno %></li>
+        <li class="list-group-item list-group-item-success"><strong>Edad:</strong><%= @patient.edad %></li>
+        <li class="list-group-item list-group-item-success"><strong>Ocupacion:</strong><%= @patient.ocupacion %></li>
+        <li class="list-group-item list-group-item-success"><strong>Procedencia:</strong><%= @patient.procedencia %></li>
+        <li class="list-group-item list-group-item-success"><strong>Direccion:</strong><%= @patient.direccion %></li>
+        <li class="list-group-item list-group-item-success"><strong>Tiempo disponible:</strong><%= @patient.tiempo_disponible %></li>
+        <li class="list-group-item list-group-item-success"><strong>Telefono:</strong><%= @patient.telefono %></li>
+        <li class="list-group-item list-group-item-success"><strong>Email:</strong><%= @patient.email %></li>
+        <li class="list-group-item list-group-item-success"><strong>CI:</strong><%= @patient.CI %></li>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Apellido paterno:</strong>
-  <%= @patient.apellido_paterno %>
-</p>
-
-<p>
-  <strong>Apellido materno:</strong>
-  <%= @patient.apellido_materno %>
-</p>
-
-<p>
-  <strong>Edad:</strong>
-  <%= @patient.edad %>
-</p>
-
-<p>
-  <strong>Ocupacion:</strong>
-  <%= @patient.ocupacion %>
-</p>
-
-<p>
-  <strong>Procedencia:</strong>
-  <%= @patient.procedencia %>
-</p>
-
-<p>
-  <strong>Direccion:</strong>
-  <%= @patient.direccion %>
-</p>
-
-<p>
-  <strong>Tiempo disponible:</strong>
-  <%= @patient.tiempo_disponible %>
-</p>
-
-<p>
-  <strong>Telefono:</strong>
-  <%= @patient.telefono %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @patient.email %>
-</p>
-
-<p>
-  <strong>Ci:</strong>
-  <%= @patient.CI %>
-</p>
-
-<%= link_to 'Editar', edit_patient_path(@patient) %> |
-<%= link_to 'Atras', patients_path %>
+<div class="container" style="padding-bottom:20px;">
+  <%= link_to 'Editar', edit_patient_path(@patient), class: "btn btn-default" %> |
+  <%= link_to 'Atras', patients_path, class: "btn btn-default" %>
+</div>

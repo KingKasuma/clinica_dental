@@ -1,4 +1,5 @@
-<div class="container well">
+<% name ||= "Crear" %>
+<h1><%= name %> Empleado</h1>
   <%= form_for(@employee , :html => {class: "form-horizontal", role:"form"}) do |f| %>
     <% if @employee.errors.any? %>
       <div id="error_explanation">
@@ -14,71 +15,141 @@
 
     <div class="form-group">
       <div class="control-label col-md-2">
-          <%= f.label :nombre %><br>
+          <%= f.label :nombre %>
       </div>
-      <div class="col-md-10">
-          <%= f.text_field :nombre , class: "form-control"%>
+      <div class="col-md-9">
+          <%= f.text_field :nombre , class: "form-control", autofocus: true%>
       </div>
     </div>
 
-    <div class="field">
-      <%= f.label :apellido_paterno %><br>
-      <%= f.text_field :apellido_paterno %>
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :apellido_paterno %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :apellido_paterno, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :apellido_materno %><br>
-      <%= f.text_field :apellido_materno %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :apellido_materno %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :apellido_materno, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :fecha_nacimiento %><br>
-      <%= f.date_select :fecha_nacimiento %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :fecha_nacimiento %>
+      </div>
+      <div class="col-md-9">
+        <%= f.text_field :fecha_nacimiento, class: "form-control datepicker" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :genero %><br>
-      <%= f.select(:genero, options_for_select([['Masculino','Masculino'],['Femenino','Femenino']]),{prompt: "Seleccione un genero"})%>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :genero %>
+      </div>
+      <div class="col-md-9">
+        <%= f.select(:genero, options_for_select([['Masculino','Masculino'],['Femenino','Femenino']]),{prompt: "Seleccione un genero"}, class: "form-control")%>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :nacionalidad %><br>
-      <%= f.text_field :nacionalidad %>
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :nacionalidad %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :nacionalidad, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :profesion %><br>
-      <%= f.text_field :profesion %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :profesion %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :profesion, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :especialidad %><br>
-      <%= f.text_area :especialidad %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :especialidad %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_area :especialidad, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :fecha_alta %><br>
-      <%= f.date_select :fecha_alta %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :fecha_alta %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :fecha_alta, class: "form-control datepicker" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :fecha_baja %><br>
-      <%= f.date_select :fecha_baja %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :fecha_baja %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :fecha_baja, class: "form-control datepicker" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :CI %><br>
-      <%= f.text_field :CI %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :CI %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :CI, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :email %><br>
-      <%= f.text_field :email %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :email %>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :email, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :sucursal %><br>
-      <%= f.number_field :sucursal %>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :sucursal %>
+      </div>
+      <div class="col-md-9">
+          <%= f.number_field :sucursal, class: "form-control" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :role_id %><br>
-      <%= f.collection_select(:role_id, Role.all, :id, :nombre, {:prompt=>'Seleccione'})%>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :role_id %>
+      </div>
+      <div class="col-md-9">
+          <%= f.collection_select(:role_id, Role.all, :id, :nombre, {:prompt=>'Seleccione'}, class: "form-control") %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :cargo %><br>
-      <%= f.select(:cargo, options_for_select([['Jefe','Jefe'],['Doctor','Doctor'],['Pasante','Pasante']]),{prompt: "Seleccione un genero"})%>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :cargo %>
+      </div>
+      <div class="col-md-9">
+          <%= f.select(:cargo, options_for_select([['Jefe','Jefe'],['Doctor','Doctor'],['Pasante','Pasante']]),{prompt: "Seleccione un genero"}, class: "form-control") %>
+      </div>
     </div>
-    <div class="actions">
-      <%= f.submit "Guardar" %>
+
+    <div class="form-group">
+      <div class="col-md-offset-1 col-md-11">
+          <%= f.submit "Guardar", class: "btn btn-primary btn-lg" %>
+      </div>
     </div>
   <% end %>
-</div>

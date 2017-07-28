@@ -1,5 +1,5 @@
-<h1 class="container" style="background-color:orange;">Nuevo empleado</h1>
+<div class="container well">
+    <%= render 'form', name: "Crear" %>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', employees_path %>
+<%= link_to 'Atras', employees_path, class: "btn btn-deafult btn-lg" %>
