@@ -125,7 +125,7 @@
           <%= f.label :sucursal %>
       </div>
       <div class="col-md-9">
-          <%= f.number_field :sucursal, class: "form-control" %>
+          <%= f.select(:sucursal, options_for_select([['1','1'],['2','2'],['3','3']]), {prompt: "Seleccione sucursal"}, class: "form-control") %>
       </div>
     </div>
 
@@ -134,7 +134,7 @@
           <%= f.label :role_id %>
       </div>
       <div class="col-md-9">
-          <%= f.collection_select(:role_id, Role.all, :id, :nombre, {:prompt=>'Seleccione'}, class: "form-control") %>
+          <%= f.collection_select(:role_id, Role.where.not("nombre = 'Paciente'"), :id, :nombre, {:prompt=>'Seleccione'}, class: "form-control") %>
       </div>
     </div>
 
@@ -143,7 +143,7 @@
           <%= f.label :cargo %>
       </div>
       <div class="col-md-9">
-          <%= f.select(:cargo, options_for_select([['Jefe','Jefe'],['Doctor','Doctor'],['Pasante','Pasante']]),{prompt: "Seleccione un genero"}, class: "form-control") %>
+          <%= f.select(:cargo, options_for_select([['Jefe','Jefe'],['Doctor','Doctor'],['Pasante','Pasante']]),{prompt: "Seleccione un cargo"}, class: "form-control") %>
       </div>
     </div>
 

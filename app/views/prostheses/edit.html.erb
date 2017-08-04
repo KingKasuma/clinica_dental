@@ -1,6 +1,13 @@
-<h1>Editing Prosthesis</h1>
+<div class="container well">
+    <%= render 'form', name: "Editar" %>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @prosthesis %> |
-<%= link_to 'Back', prostheses_path %>
+<% if current_user.has_rol("Ortondoncista") %>
+  <div class="container" style="padding-bottom:15px;">
+      <%= link_to 'Atras', lista_path, class: "btn btn-default" %>
+  </div>
+<% else %>
+<div class="container" style="padding-bottom:15px;">
+  <%= link_to 'Atras', @prosthesis, class: "btn btn-default" %>
+</div>
+<% end %>

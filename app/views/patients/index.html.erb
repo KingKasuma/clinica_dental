@@ -27,7 +27,7 @@
     <!--Espacio en blanco en medio de ambos-->
 
     <!--Lista de Pacientes-->
-    <div class="col-sm-8 well">
+    <div class="col-sm-8 well" style="background-color:#c5d8de;">
       <div class="table-responsive">
         <table class="table table-hover" id="transactions">
           <thead>
@@ -48,7 +48,7 @@
                 <td class="category"><%= patient.telefono %></td>
                 <td class="text-right">
                   <% if patient.medical_history.nil? %>
-                    <%= link_to 'Nuevo Historial clinico', {:controller => "medical_histories",:action => "new", :id => patient.id}, class: "btn btn-success active" %><!-- true -->
+                    <%= link_to 'Nuevo Historial clinico', {:controller => "medical_histories",:action => "new", :id => patient.id}, class: "btn btn-success active" %>
                   <% else %>
                     <%= link_to 'Historial Clinico', {:controller => 'medical_histories', :action => 'show', :id => patient.medical_history.id}, class: "btn btn-warning active"%>
                   <% end %>

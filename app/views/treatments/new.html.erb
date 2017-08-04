@@ -1,5 +1,7 @@
-<h1>New Treatment</h1>
+<div class="container well">
+    <%= render 'form', name: "Crear" %>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', treatments_path %>
+<div class="container" style="padding-bottom:15px;">
+    <%= link_to 'Atras', medical_history_path(@medical_history), class: "btn btn-default" %>
+</div>

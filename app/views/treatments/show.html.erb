@@ -1,49 +1,36 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <div class="list-group">
+          <li class="list-group-item list-group-item-success"><strong>Tratamiento:</strong><%= @treatment.nombre %></li>
+          <li class="list-group-item list-group-item-success"><strong>Descripcion:</strong><%= @treatment.tratamiento %></li>
+          <% if current_user.employee.jefe? %>
+            <li class="list-group-item list-group-item-success"><strong>Costo:</strong><%= @treatment.costo %></li>
+          <% end %>
+          <li class="list-group-item list-group-item-success"><strong>Diagnostico Presuntivo:</strong><%= @treatment.diagnostico_presuntivo %></li>
+          <li class="list-group-item list-group-item-success"><strong>Diagnostico Definitivo:</strong><%= @treatment.diagnostico_definitivo %></li>
+          <% if @treatment.rayos_x == true %>
+            <li class="list-group-item list-group-item-success"><strong>Rayos X:</strong>SI</li>
+          <% else %>
+            <li class="list-group-item list-group-item-danger"><strong>Rayos X:</strong>NO</li>
+          <% end %>
+          <% unless current_user.employee.jefe? %>
+            <%= link_to "Doctor: #{@treatment.employee.nombre}", employee_path(@treatment.employee), class: "list-group-item list-group-item-success" %>
+          <% else %>
+            <li class="list-group-item list-group-item-success"><strong>Doctor:</strong><%= @treatment.employee.nombre %></li>
+          <% end %>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @treatment.nombre %>
-</p>
+          <li class="list-group-item list-group-item-success"><strong>Exament Dental:</strong><%= @treatment.dental_examination.posicion %>  <%= @treatment.dental_examination.numero_diente %></li>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Tratamiento:</strong>
-  <%= @treatment.tratamiento %>
-</p>
-
-<p>
-  <strong>Costo:</strong>
-  <%= @treatment.costo %>
-</p>
-
-<p>
-  <strong>Diagnostico presuntivo:</strong>
-  <%= @treatment.diagnostico_presuntivo %>
-</p>
-
-<p>
-  <strong>Diagnostico definitivo:</strong>
-  <%= @treatment.diagnostico_definitivo %>
-</p>
-
-<p>
-  <strong>Rayos x:</strong>
-  <%= @treatment.rayos_x %>
-</p>
-
-<p>
-  <strong>Employee:</strong>
-  <%= @treatment.employee %>
-</p>
-
-<p>
-  <strong>Medical history:</strong>
-  <%= @treatment.medical_history %>
-</p>
-
-<p>
-  <strong>Dental examination:</strong>
-  <%= @treatment.dental_examination %>
-</p>
-
-<%= link_to 'Edit', edit_treatment_path(@treatment) %> |
-<%= link_to 'Back', treatments_path %>
+<% if current_user.has_rol("ortondoncista") %>
+  <%= link_to 'Atras', lista_path, class: "btn btn-default" %>
+<% else %>
+  <div class="container">
+    <%= link_to 'Editar', edit_treatment_path(@treatment), class: "btn btn-default" %>
+    <%= link_to 'Atras', medical_history_path(@treatment.medical_history), class: "btn btn-default" %>
+  </div>
+<% end %>

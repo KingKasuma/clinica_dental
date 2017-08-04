@@ -75,20 +75,14 @@
         <%= f.text_area :direccion, class: "form-control" %>
     </div>
   </div>
-<<<<<<< HEAD
-  <div class="field">
-    <%= f.label :tiempo_disponible %><br>
-    <%= f.select(:tiempo_disponible, options_for_select([['Mañana','Mañana'],['Tarde','Tarde'],['Noche','Noche']]),{prompt: "Seleccione un genero"})%>
-=======
 
   <div class="form-group">
     <div class="control-label col-md-2">
         <%= f.label :tiempo_disponible %><br>
     </div>
     <div class="col-md-9">
-        <%= f.text_field :tiempo_disponible, class: "form-control" %>
+        <%= f.select(:tiempo_disponible, options_for_select([['Mañana','Mañana'],['Tarde','Tarde'],['Noche','Noche']]),{prompt: "Seleccione una opcion"}, class: "form-control")%>
     </div>
->>>>>>> user-management-module
   </div>
 
   <div class="form-group">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727191958) do
+ActiveRecord::Schema.define(version: 20170804101654) do
 
   create_table "dental_examinations", force: :cascade do |t|
     t.string   "posicion",      limit: 255
@@ -86,8 +86,11 @@ ActiveRecord::Schema.define(version: 20170727191958) do
     t.datetime "updated_at",                       null: false
     t.date     "fecha_pedido"
     t.date     "fecha_entrega"
+    t.integer  "employee_id",        limit: 4
+    t.string   "estado",             limit: 255
   end
 
+  add_index "prostheses", ["employee_id"], name: "index_prostheses_on_employee_id", using: :btree
   add_index "prostheses", ["medical_history_id"], name: "index_prostheses_on_medical_history_id", using: :btree
   add_index "prostheses", ["treatment_id"], name: "index_prostheses_on_treatment_id", using: :btree
 
@@ -154,6 +157,7 @@ ActiveRecord::Schema.define(version: 20170727191958) do
   add_foreign_key "employees", "roles"
   add_foreign_key "medical_histories", "patients"
   add_foreign_key "patients", "roles"
+  add_foreign_key "prostheses", "employees"
   add_foreign_key "prostheses", "medical_histories"
   add_foreign_key "prostheses", "treatments"
   add_foreign_key "reservations", "employees"

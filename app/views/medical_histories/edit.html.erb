@@ -1,5 +1,7 @@
-<h1>Editing Medical History</h1>
+<div class="container jumbotron">
+    <%= render 'form', name: "Editar" %>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Atras', @medical_history %> 
+<div class="container" style="padding-bottom:20px;">
+    <%= link_to 'Atras', @medical_history, class: "btn btn-default" %>
+</div>

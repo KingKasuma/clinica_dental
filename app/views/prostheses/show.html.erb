@@ -1,29 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <div class="list-group">
+        <li class="list-group-item list-group-item-success"><strong>Nombre: </strong><%= @prosthesis.nombre %></li>
+        <li class="list-group-item list-group-item-success"><strong>Protesis: </strong><%= @prosthesis.protesis %></li>
+        <% if current_user.has_rol("ortondoncista") || current_user.employee.jefe? %>
+          <li class="list-group-item list-group-item-success"><strong>Costo: </strong><%= @prosthesis.costo %></li>
+        <% end %>
+        <li class="list-group-item list-group-item-success"><strong>Tratamiento: </strong><%= link_to @prosthesis.treatment.nombre, treatment_path(@prosthesis.treatment), class: "btn btn-info" %></li>
+        <% if current_user.has_rol("Doctor") %>
+          <li class="list-group-item list-group-item-success"><strong>Historial Medico: </strong><%= link_to @prosthesis.medical_history.patient.nombres, medical_history_path(@prosthesis.medical_history), class: "btn btn-info" %></li>
+        <% else %>
+          <li class="list-group-item list-group-item-success"><strong>Historial Medico: </strong><%= link_to @prosthesis.medical_history.patient.nombres, medical_history_path(@prosthesis.medical_history), class: "btn btn-info disabled" %></li>
+        <% end %>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @prosthesis.nombre %>
-</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Protesis:</strong>
-  <%= @prosthesis.protesis %>
-</p>
+<div class="container">
+  <% if current_user.employee.jefe? || current_user.has_rol("ortondoncista") %>
+    <%= link_to 'Editar', edit_prosthesis_path(@prosthesis), class: "btn btn-default" %>
+  <% end %>
+  <% if current_user.has_rol("ortondoncista") %>
+    <%= link_to "Atras", lista_path, class: "btn btn-default" %>
+  <% else %>
+    <%= link_to "Atras", {:controller => "prostheses", :action => "index", :id => @prosthesis.treatment.id }, class: "btn btn-default" %>
+  <% end %>
 
-<p>
-  <strong>Costo:</strong>
-  <%= @prosthesis.costo %>
-</p>
-
-<p>
-  <strong>Treatment:</strong>
-  <%= @prosthesis.treatment %>
-</p>
-
-<p>
-  <strong>Medical history:</strong>
-  <%= @prosthesis.medical_history %>
-</p>
-
-<%= link_to 'Edit', edit_prosthesis_path(@prosthesis) %> |
-<%= link_to 'Back', prostheses_path %>
+</div>

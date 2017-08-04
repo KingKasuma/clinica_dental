@@ -1,90 +1,58 @@
 <% if user_signed_in? %>
-<<<<<<< HEAD
-  <% if current_user.employee.nil? && current_user.patient.present? %>
-      <h1>Bienvenido/a <%= current_user.patient.nombres%> <%= current_user.patient.apellido_paterno%></h1>
-      <div class="container">
-        <table class="table table-striped table-bordered">
-        <thead>
-          <tr class="active">
-            <th>Rol</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= current_user.patient.role.nombre %></td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-  <% elsif current_user.patient.nil? && current_user.employee.present? %>
-      <h1>Bienvenido/a <%= current_user.employee.nombre%> <%= current_user.employee.apellido_paterno %></h1>
-      <div class="container">
-        <table class="table table-striped table-bordered">
-        <thead>
-          <tr class="active">
-            <th>Rol</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= current_user.employee.role.nombre %></td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-  <% else %>
-    <h1>Bienvenido/a <%= current_user.username %></h1>
-=======
   <% if current_user.employee.nil? && current_user.patient.nil? %>
-  <h1>Bienvenido/a <%= current_user.username %></h1>
->>>>>>> user-management-module
-    <div class="container">
-      <table class="table table-striped table-bordered">
-      <thead>
-        <tr class="active">
-          <th>Rol</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Administrador</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container well">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+          <h1>Bienvenido/a <%= current_user.username %></h1>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr class="success">
+                <th>Rol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="warning">
+                <td>Administrador</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   <% else %>
-    <% if current_user.employee.nil? %>
-        <h1>Bienvenido/a <%= current_user.patient.nombres%> <%= current_user.patient.apellido_paterno%></h1>
-        <div class="container">
-          <table class="table table-striped table-bordered">
+    <% if current_user.patient.nil? %>
+      <h1>Bienvenido/a <%= current_user.username %></h1>
+      <div class="container">
+        <table class="table table-striped table-bordered">
           <thead>
-            <tr class="active">
+            <tr class="success">
               <th>Rol</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><%= current_user.patient.role.nombre %></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-    <% else current_user.patient.nil? %>
-        <h1>Bienvenido/a <%= current_user.employee.nombre%> <%= current_user.employee.apellido_paterno %></h1>
-        <div class="container">
-          <table class="table table-striped table-bordered">
-          <thead>
-            <tr class="active">
-              <th>Rol</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+            <tr class="success">
               <td><%= current_user.employee.role.nombre %></td>
             </tr>
           </tbody>
         </table>
-        </div>
+      </div>
+    <% end %>
+    <% if current_user.employee.nil? %>
+      <h1>Bienvenido/a <%= current_user.username %></h1>
+      <div class="container">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Rol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= current_user.patient.role %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     <% end %>
   <% end %>
 <% end %>

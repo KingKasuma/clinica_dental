@@ -1,4 +1,6 @@
-<%= form_for(@prosthesis) do |f| %>
+<% name ||= "Crear" %>
+<h1><%= name %> protesis</h1>
+<%= form_for(@prosthesis, :html => {class: "form-horizontal", role: "form"}) do |f| %>
   <% if @prosthesis.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@prosthesis.errors.count, "error") %> prohibited this prosthesis from being saved:</h2>
@@ -11,27 +13,69 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :nombre %><br>
+    </div>
+    <div class="col-md-9">
+        <%= f.text_field :nombre, class: "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :protesis %><br>
-    <%= f.text_area :protesis %>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :protesis %><br>
+    </div>
+    <div class="col-md-9">
+        <%= f.text_area :protesis, class: "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :costo %><br>
-    <%= f.text_field :costo %>
+
+  <% if current_user.employee.jefe? ||current_user.has_rol("ortondoncista") %>
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :costo %><br>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :costo, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+      <%= f.label :fecha_de_pedido %>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_field :fecha_pedido, class: "form-control datepicker" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :treatment_id %><br>
-    <%= f.text_field :treatment_id %>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+      <%= f.label :fecha_de_entrega %>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_field :fecha_entrega, class: "form-control datepicker" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :medical_history_id %><br>
-    <%= f.text_field :medical_history_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <% unless current_user.employee.nil? %>
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :ortondoncista %>
+      </div>
+      <div class="col-md-9">
+        <%= f.collection_select(:employee_id, Employee.where("role_id LIKE ?","4"), :id, :nombre, {:prompt=>'Seleccione un ortodoncista'}, class: "form-control") %>
+      </div>
+    </div>
+
+  <% end %>
+  <% unless @treatment.nil? %>
+      <%= f.hidden_field :treatment_id, value: @treatment.id %>
+      <%= f.hidden_field :medical_history_id, value: @treatment.medical_history.id %>
+  <% end %>
+      <%= f.hidden_field :estado, value: "pendiente" %>
+  <div class="form-group">
+    <%= f.submit "Guardar", class: "btn btn-primary btn-lg" %>
   </div>
 <% end %>

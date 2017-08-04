@@ -1,35 +1,71 @@
-<div class=" container well">
+<div class="container well" style="background-color:#55ac9a;">
   <div class="field">
     <%= f.hidden_field :employee_id, value: current_user.employee.id %>
   </div>
-  <div class="field">
-    <%= f.label :dental_examination_id %><br>
-    <%= f.collection_select(:dental_examination_id, DentalExamination.all, :id, :numero_diente, {:prompt=>'Seleccion numero de diente'})%>
-  </div>
-  <div class="field">
-    <%= f.label :diagnostico_presuntivo, 'Diagnostico Presuntivo'%>
-    <%= f.text_area :diagnostico_presuntivo%>
-  </div>
-  <div class="field">
-    <%= f.label :diagnostico_definitivo, 'Diagnostico Definitivo'%>
-    <%= f.text_area :diagnostico_definitivo%>
-  </div>
-  <div class="field">
-    <%= f.label :rayos_x, 'Rayos X'%>
-    <%= f.check_box :rayos_x %>
-  </div>
-    <div class="field">
-      <%= f.label :nombre, 'Nombre del tratamiento'%>
-      <%= f.text_field :nombre%>
-    </div>
-    <div class="field">
-      <%= f.label :tratamiento, 'Descripcion del tratamiento'%>
-      <%= f.text_area :tratamiento%>
-    </div>
-    <div class="field">
-      <%= f.label :costo, 'Costo del tratamiento'%>
-      <%= f.text_field :costo%>
-    </div>
-  <%= f.link_to_remove "Eliminar este tratemiento"%>
 
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :dental_examination_id %><br>
+    </div>
+    <div class="col-md-9">
+        <%= f.collection_select(:dental_examination_id, DentalExamination.all, :id, :numero_diente, {:prompt=>'Seleccion numero de diente'}, class: "form-control")%>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :diagnostico_presuntivo, 'Diagnostico Presuntivo'%>
+    </div>
+    <div class="col-md-9">
+        <%= f.text_area :diagnostico_presuntivo, class: "form-control"%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :diagnostico_definitivo, 'Diagnostico Definitivo'%>
+    </div>
+    <div class="col-md-9">
+        <%= f.text_area :diagnostico_definitivo, class: "form-control"%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :rayos_x, 'Rayos X'%>
+    </div>
+    <div class="col-md-9">
+        <%= f.check_box :rayos_x, class: "form-control" %>
+    </div>
+  </div>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :nombre, 'Nombre del tratamiento'%>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :nombre, class: "form-control"%>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+        <%= f.label :tratamiento, 'Descripcion del tratamiento'%>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_area :tratamiento, class: "form-control"%>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="control-label col-md-2">
+          <%= f.label :costo, 'Costo del tratamiento'%>
+      </div>
+      <div class="col-md-9">
+          <%= f.text_field :costo, class: "form-control"%>
+      </div>
+    </div>
+
+    <div class="col-md-offset-1 col-md-11">
+      <%= f.link_to_remove "Eliminar este tratemiento", class: "btn btn-danger"%>        
+    </div>
 </div>

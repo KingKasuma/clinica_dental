@@ -1,0 +1,23 @@
+<h1><%= treatment.id %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-5">
+      <div class="list-group">
+        <% @medical_history.treatments.each do |treatment| %>
+          <li class="list-group-item list-group-item-success"><strong>Nombre:</strong><%= treatment.nombre %></li>
+          <li class="list-group-item list-group-item-success"><strong>Tratamiento:</strong><%= treatment.tratamiento %></li>
+          <li class="list-group-item list-group-item-success"><strong>Costo:</strong><%= treatment.costo %></li>
+          <li class="list-group-item list-group-item-success"><strong>Diagnostico Presuntivo:</strong><%= treatment.diagnostico_presuntivo %></li>
+          <li class="list-group-item list-group-item-success"><strong>Diagnostico Definitivo:</strong><%= treatment.diagnostico_definitivo %></li>
+          <% if treatment.rayos_x == true %>
+            <li class="list-group-item list-group-item-success"><strong>Rayos X:</strong>SI</li>
+          <% else %>
+            <li class="list-group-item list-group-item-danger"><strong>Rayos X:</strong>NO</li>
+          <% end %>
+          <li class="list-group-item list-group-item-success"><strong>Doctor:</strong><%= treatment.employee.nombre %></li>
+          <li class="list-group-item list-group-item-success"><strong>Exament Dental:</strong><%= treatment.dental_examination.posicion %>  <%= treatment.dental_examination.numero_diente %></li>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

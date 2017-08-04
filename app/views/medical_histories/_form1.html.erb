@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <%= form_for(@medical_history, :html => {class: "form-horizontal", role: "form"}) do |f|%>
+      <% if @medical_history.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@medical_history.errors.count, "error") %>prohibited this medical_history from being saved:</h2>
+
+          <ul>
+              <% @medical_history.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% unless @patient.nil? %>
+        <%= f.hidden_field :patient_id, value: @patient.id%>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+          <li class="list-group-item"><%= f.label :esta_en_tratamiento_medico?%> <%= f.check_box :tratamiento_medico %></li>
+          <li class="list-group-item"><%= f.label :Toma_medicamentos_actualmente? %> <%= f.check_box :medicamentos_actuales %></li>
+          <li class="list-group-item"><%= f.label :es_enfermo_del_corazon? %> <%= f.check_box :enfermo_corazon %></li>
+        </div>
+        <div class="col-md-5">
+          <li class="list-group-item"><%= f.label :sufre_desmayos_con_frecuencia? %> <%= f.check_box :desmayos_frecuencia %></li>
+          <li class="list-group-item"><%= f.label :ha_sido_intervenido_quirurgicamente? %> <%= f.check_box :intervenido_quirurgicamente %></li>
+          <li class="list-group-item"><%= f.label :ha_tenido_complicaciones_o_hemorragias_anormales_despues_de_una_extraccion_o_una_herida? %> <%= f.check_box :complicaciones_hemorragias %></li>
+        </div>
+      </div>
+
+      <div class="form-group" style="padding-top:15px;">
+        <div class="control-label col-md-2">
+          <%= f.label :observaciones %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_area :observaciones, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-offset-1 col-md-11">
+        <%= f.submit "Guardar", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -16,10 +16,6 @@ class MedicalHistoriesController < ApplicationController
   def new
     @patient = Patient.find(params[:id])
     @medical_history = MedicalHistory.new
-    1.times { @medical_history.treatments.build }
-
-    number = 1
-    @algo = number
   end
 
   # GET /medical_histories/1/edit
@@ -31,10 +27,9 @@ class MedicalHistoriesController < ApplicationController
   # POST /medical_histories.json
   def create
     @medical_history = MedicalHistory.new(medical_history_params)
-
     respond_to do |format|
       if @medical_history.save
-        format.html { redirect_to @medical_history, notice: 'Medical history was successfully created.' }
+        format.html { redirect_to @medical_history, notice: 'Historial Medico creado.' }
         format.json { render :show, status: :created, location: @medical_history }
       else
         format.html { render :new }
@@ -48,7 +43,7 @@ class MedicalHistoriesController < ApplicationController
   def update
     respond_to do |format|
       if @medical_history.update(medical_history_params)
-        format.html { redirect_to @medical_history, notice: 'Medical history was successfully updated.' }
+        format.html { redirect_to @medical_history, notice: 'Historial Medico editado.' }
         format.json { render :show, status: :ok, location: @medical_history }
       else
         format.html { render :edit }
@@ -62,10 +57,11 @@ class MedicalHistoriesController < ApplicationController
   def destroy
     @medical_history.destroy
     respond_to do |format|
-      format.html { redirect_to medical_histories_url, notice: 'Medical history was successfully destroyed.' }
+      format.html { redirect_to medical_histories_url, notice: 'Historial Medico eliminado.' }
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

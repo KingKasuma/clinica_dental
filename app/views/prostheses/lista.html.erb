@@ -32,6 +32,12 @@
                     <td><%= link_to 'Verificar', edit_prosthesis_path(prosthesis), class: "btn btn-warning" %></td>
                 <% else %>
                   <td><%= link_to 'Detalles', prosthesis, class: "btn btn-info" %></td>
+                  <% if prosthesis.estado == "pendiente" %>
+                    <td><%= link_to 'Despachar', {:controller => "prostheses", :action => "entregado", :id => prosthesis.id}, class: "btn btn-warning" %></td>
+                  <% else %>
+                    <td><%= link_to 'Despachado', lista_path, class: "btn btn-danger" %></td>
+                  <% end %>
+
                 <% end %>
 
 
@@ -45,8 +51,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="container">
-    <%= link_to "Atras", medical_history_path(@treatment.medical_history), class: "btn btn-default" %>
 </div>

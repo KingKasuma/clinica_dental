@@ -15,5 +15,4 @@
 //= require jquery-ui
 //= require bootstrap-sprockets
 //= require jquery_nested_form
-//= require turbolinks
 //= require_tree .

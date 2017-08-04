@@ -1,5 +1,7 @@
-<h1>New Prosthesis</h1>
+<div class="container well">
+    <%= render 'form', name: "Nueva" %>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', prostheses_path %>
+<div class="container" style="padding-bottom:15px;">
+    <%= link_to 'Atras', medical_history_path(@medical_history), class: "btn btn-warning btn-lg" %>
+</div>

@@ -14,6 +14,7 @@ class TreatmentsController < ApplicationController
 
   # GET /treatments/new
   def new
+    @medical_history = MedicalHistory.find(params[:id])
     @treatment = Treatment.new
   end
 
@@ -28,7 +29,7 @@ class TreatmentsController < ApplicationController
     @treatment = Treatment.new(treatment_params)
     respond_to do |format|
       if @treatment.save
-        format.html { redirect_to @treatment, notice: 'Treatment was successfully created.' }
+        format.html { redirect_to medical_history_path(@treatment.medical_history), notice: 'Tratamiento creado.' }
         format.json { render :show, status: :created, location: @treatment }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class TreatmentsController < ApplicationController
   def update
     respond_to do |format|
       if @treatment.update(treatment_params)
-        format.html { redirect_to @treatment, notice: 'Treatment was successfully updated.' }
+        format.html { redirect_to medical_history_path(@treatment.medical_history), notice: 'Tratamiento modificado.' }
         format.json { render :show, status: :ok, location: @treatment }
       else
         format.html { render :edit }
@@ -56,8 +57,9 @@ class TreatmentsController < ApplicationController
   def destroy
     @treatment.destroy
     respond_to do |format|
-      format.html { redirect_to treatments_url, notice: 'Treatment was successfully destroyed.' }
+      format.html { redirect_to treatments_url, notice: 'Tratamiento eliminado.' }
       format.json { head :no_content }
+      redirect_to medical_history_path(@treatment.medical_history)
     end
   end
 
