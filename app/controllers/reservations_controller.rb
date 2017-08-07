@@ -4,8 +4,57 @@ class ReservationsController < ApplicationController
   # GET /reservations
   # GET /reservations.json
   def index
-    @reservations = Reservation.all
-  end
+    @horas = [9.00,9.30,10.00,10.30,11.00,11.30,12.00,14.30,15.00,15.30,16.00,16.30,17.00,17.30,18.00,18.30,19.00,19.30,20.00]
+    @hora = Reservation.new
+
+    if params[:nombres].present?
+      @patients = @patients.where("nombres LIKE ?", "%#{params[:nombres]}%")
+    end
+
+    if params[:employee_id].present?
+      @doctor = Employee.find(params[:employee_id])
+    end
+
+    if params[:fecha].present?
+      @fecha = params[:fecha]
+      @fecha = @fecha.to_date      
+      if @doctor.reservations == []
+        flash.now[:danger] = "Empleado no tiene ninguna reserva para esta fecha"
+        @reserva = "Reservar"
+      else
+        @doctor.reservations.each do |reserva|
+          if reserva.fecha.to_s == params[:fecha]
+            #Doctor seleccionado con alguna reservacion con fecha
+            @reservas = @doctor.reservations.where("fecha LIKE ?", @fecha)
+          else
+            @reserva = "Reservar"
+          end
+        end
+      end
+    end
+=begin
+  @reserva = Reservation.all
+      if @reserva.nil?
+        @palabra = "Reservar"
+      else
+        @reserva.each do |reserva|
+            if reserva.fecha.to_s == "%#{params[:fecha]}%"
+              flash[:success] = "Existe fecha"
+              @horas.each do |hora|
+                entero = hora.to_i
+                decimal = ((hora%entero)*100).to_i
+                if reserva.hora.hour == entero && reserva.hora.min == decimal
+                  @palabra = "Reservado"
+                else
+                  @palabra = "Reservar"
+                end
+              end
+            end
+        end
+      end
+=end
+    end
+
 
   # GET /reservations/1
   # GET /reservations/1.json
@@ -14,6 +63,12 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/new
   def new
+    @employee = Employee.find(params[:employee_id])
+    @fecha = params[:fecha]
+    texto = params[:hora]
+    entero = texto.to_i
+    decimal = ((texto%entero)*100).to_i
+    @hora = (entero.to_s)+":"+(decimal.to_s)
     @reservation = Reservation.new
   end
 
@@ -61,6 +116,15 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def diary
+    @employee = Employee.find(params[:id])
+    @reservaciones = @employee.reservations
+    #@horas = [[9,00],[9,30],[10,00],[10,30],[11,00],[11,30],[12,00],[14,30],[15,00],[15,30],[16,00],[16,30],[17,00],[17,30],[18,00],[18,30],[19,00],[19,30],[20,00]]
+    if params[:fecha].present?
+      @reservas = @employee.reservations.where("estado LIKE ?", "%#{params[:fecha]}%")
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation
@@ -69,6 +133,6 @@ class ReservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
-      params.require(:reservation).permit(:nombre, :descripcion, :employee_id, :patient_id)
+      params.require(:reservation).permit(:employee_id, :patient_id, :estado)
     end
 end

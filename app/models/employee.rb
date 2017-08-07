@@ -1,5 +1,6 @@
 class Employee < ActiveRecord::Base
   belongs_to :role
+  belongs_to :sucursal
   has_one :user, dependent: :destroy
   has_one :treatment, dependent: :destroy
   has_many :reservations, dependent: :destroy
@@ -12,6 +13,10 @@ class Employee < ActiveRecord::Base
     end
 
     resp
+  end
+
+  def full_name
+    "#{nombre} #{apellido_paterno} #{apellido_materno}"
   end
 
 end

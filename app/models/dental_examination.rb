@@ -12,7 +12,7 @@ class DentalExamination < ActiveRecord::Base
       pos = "ID"
     end
     if self.posicion.downcase == "inferior izquierda"
-      pos = "SD"
+      pos = "II"
     end
 
     return pos

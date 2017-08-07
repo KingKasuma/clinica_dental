@@ -21,6 +21,7 @@ gem 'nested_form'
 
 gem 'devise'
 gem 'pry-rails'
+gem 'awesome_print'
 gem 'jquery-ui-rails'
 
 # Use jquery as the JavaScript library

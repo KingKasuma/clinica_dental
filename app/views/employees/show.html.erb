@@ -14,7 +14,7 @@
         <li class="list-group-item list-group-item-success"><strong>Fecha baja:</strong><%= @employee.fecha_baja %></li>
         <li class="list-group-item list-group-item-success"><strong>CI:</strong><%= @employee.CI %></li>
         <li class="list-group-item list-group-item-success"><strong>Email:</strong><%= @employee.email %></li>
-        <li class="list-group-item list-group-item-success"><strong>Sucursal:</strong><%= @employee.sucursal %></li>
+        <li class="list-group-item list-group-item-success"><strong>Sucursal: </strong><%= @employee.sucursal.direccion %></li>
         <li class="list-group-item list-group-item-success"><strong>Rol:</strong><%= @employee.role.nombre %></li>
         <li class="list-group-item list-group-item-success"><strong>Cargo:</strong><%= @employee.cargo %></li>
       </div>
@@ -23,6 +23,6 @@
 </div>
 
 <div class="container" style="padding-bottom:50px;">
-  <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-default" %> |
+  <%= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-default" %> 
   <%= link_to 'Atras', employees_path, class: "btn btn-default" %>
 </div>

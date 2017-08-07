@@ -1,5 +1,5 @@
 <% name ||= "Crear" %>
-<h1><%= name %> Empleado</h1>
+<h1><%= name %> Empleado <%= @employee.full_name %></h1>
   <%= form_for(@employee , :html => {class: "form-horizontal", role:"form"}) do |f| %>
     <% if @employee.errors.any? %>
       <div id="error_explanation">
@@ -125,7 +125,7 @@
           <%= f.label :sucursal %>
       </div>
       <div class="col-md-9">
-          <%= f.select(:sucursal, options_for_select([['1','1'],['2','2'],['3','3']]), {prompt: "Seleccione sucursal"}, class: "form-control") %>
+          <%= f.collection_select(:sucursal_id, Sucursal.all, :id, :direccion, {:prompt=>'Seleccione una sucursal'}, class: "form-control") %>
       </div>
     </div>
 

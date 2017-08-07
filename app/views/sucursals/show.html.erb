@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <div class="list-group">
+        <li class="list-group-item list-group-item-success"><strong>Direccion: </strong> <%= @sucursal.direccion %></li>
+        <li class="list-group-item list-group-item-success"><strong>Telefono: </strong> <%= @sucursal.telefono %></li>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <%= link_to 'Editar', edit_sucursal_path(@sucursal), class: "btn btn-default" %> 
+  <%= link_to 'Atras', sucursals_path, class: "btn btn-default" %>
+</div>

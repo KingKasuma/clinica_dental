@@ -9,4 +9,8 @@ $(document).ready(function(){
       monthNames: ["Enero","Febrero","Marzo","Abril", "Mayo", "Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
       yearRange: "1950:2017"
       });
+
+
+      $('[data-toggle="popover"]').popover('')
+
 });

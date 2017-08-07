@@ -10,18 +10,8 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :descripcion %><br>
-    <%= f.text_area :descripcion %>
-  </div>
-  <div class="field">
-    <%= f.label :employee_id %><br>
-    <%= f.text_field :employee_id %>
+    <%= f.hidden_field :employee_id, value: @treatment.id %>
   </div>
   <div class="field">
     <%= f.label :patient_id %><br>

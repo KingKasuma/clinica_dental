@@ -1,0 +1,36 @@
+<% name ||= "Nueva" %>
+<h1><%= name %> Sucursal</h1>
+<%= form_for(@sucursal, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @sucursal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sucursal.errors.count, "error") %> prohibited this sucursal from being saved:</h2>
+
+      <ul>
+      <% @sucursal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :direccion %><br>
+    </div>
+    <div class="col-md-9">
+        <%= f.text_area :direccion, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-md-2">
+        <%= f.label :telefono %><br>
+    </div>
+    <div class="col-md-9">
+        <%= f.number_field :telefono, class: "form-control" %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit "Guardar", class: "btn btn-primary" %>
+  </div>
+<% end %>

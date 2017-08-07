@@ -14,8 +14,8 @@
           <% else %>
             <li class="list-group-item list-group-item-danger"><strong>Rayos X:</strong>NO</li>
           <% end %>
-          <% unless current_user.employee.jefe? %>
-            <%= link_to "Doctor: #{@treatment.employee.nombre}", employee_path(@treatment.employee), class: "list-group-item list-group-item-success" %>
+          <% if current_user.employee.jefe? %>
+            <li class="list-group-item list-group-item-success"><strong>Doctor:</strong><%= link_to @treatment.employee.nombre, employee_path(@treatment.employee), class: "btn btn-info", target:"_blank" %></li>                
           <% else %>
             <li class="list-group-item list-group-item-success"><strong>Doctor:</strong><%= @treatment.employee.nombre %></li>
           <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804101654) do
+ActiveRecord::Schema.define(version: 20170804164820) do
 
   create_table "dental_examinations", force: :cascade do |t|
     t.string   "posicion",      limit: 255
@@ -33,14 +33,15 @@ ActiveRecord::Schema.define(version: 20170804101654) do
     t.date     "fecha_baja"
     t.string   "CI",               limit: 255
     t.string   "email",            limit: 255
-    t.integer  "sucursal",         limit: 4
     t.integer  "role_id",          limit: 4
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "cargo",            limit: 255
+    t.integer  "sucursal_id",      limit: 4
   end
 
   add_index "employees", ["role_id"], name: "index_employees_on_role_id", using: :btree
+  add_index "employees", ["sucursal_id"], name: "index_employees_on_sucursal_id", using: :btree
 
   create_table "medical_histories", force: :cascade do |t|
     t.boolean  "tratamiento_medico"
@@ -95,12 +96,13 @@ ActiveRecord::Schema.define(version: 20170804101654) do
   add_index "prostheses", ["treatment_id"], name: "index_prostheses_on_treatment_id", using: :btree
 
   create_table "reservations", force: :cascade do |t|
-    t.string   "nombre",      limit: 255
-    t.text     "descripcion", limit: 65535
     t.integer  "employee_id", limit: 4
     t.integer  "patient_id",  limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.date     "fecha"
+    t.time     "hora"
+    t.string   "estado",      limit: 255
   end
 
   add_index "reservations", ["employee_id"], name: "index_reservations_on_employee_id", using: :btree
@@ -111,6 +113,13 @@ ActiveRecord::Schema.define(version: 20170804101654) do
     t.text     "descripcion", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "sucursals", force: :cascade do |t|
+    t.text     "direccion",  limit: 65535
+    t.integer  "telefono",   limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "treatments", force: :cascade do |t|
@@ -155,6 +164,7 @@ ActiveRecord::Schema.define(version: 20170804101654) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "employees", "roles"
+  add_foreign_key "employees", "sucursals"
   add_foreign_key "medical_histories", "patients"
   add_foreign_key "patients", "roles"
   add_foreign_key "prostheses", "employees"

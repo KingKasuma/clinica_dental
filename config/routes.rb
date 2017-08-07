@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :sucursals
   resources :reservations
   resources :prostheses
   resources :treatments
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   get '/perfil' => 'welcome#perfil'
   get '/lista' => 'prostheses#lista'
   get '/entregado/:id' => 'prostheses#entregado'
+  get '/diary' => 'reservations#diary'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
