@@ -20,7 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello:
-    short: 'welcome'
-    long: 'Welcome to our website'
-    too_long: 'Hi, welcome to our amazing website :-)'
+  site_title: 'This is the english version'
+  site_name: 'My Site'
+  welcome: 'Wellcome to our amazing website'

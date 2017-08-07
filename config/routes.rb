@@ -1,24 +1,25 @@
 Rails.application.routes.draw do
 
-  resources :sucursals
-  resources :reservations
-  resources :prostheses
-  resources :treatments
-  resources :dental_examinations
-  resources :medical_histories
-  resources :patients
-  resources :employees
-  resources :roles
-  devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  scope '/(:locale)', defaults: { locale: 'es' }, constraints: { locale: /en|es/ } do  
+    root to: 'welcome#index'
+    resources :sucursals
+    resources :reservations
+    resources :prostheses
+    resources :treatments
+    resources :dental_examinations
+    resources :medical_histories
+    resources :patients
+    resources :employees
+    resources :roles
+    devise_for :users
 
-  # You can have the root of your site routed with "root"
-  root to: 'welcome#index'
-  get '/perfil' => 'welcome#perfil'
-  get '/lista' => 'prostheses#lista'
-  get '/entregado/:id' => 'prostheses#entregado'
-  get '/diary' => 'reservations#diary'
+
+    get '/perfil' => 'welcome#perfil'
+    get '/lista' => 'prostheses#lista'
+    get '/entregado/:id' => 'prostheses#entregado'
+    get '/diary' => 'reservations#diary'
+  end
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

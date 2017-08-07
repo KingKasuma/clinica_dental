@@ -17,7 +17,7 @@ class ReservationsController < ApplicationController
 
     if params[:fecha].present?
       @fecha = params[:fecha]
-      @fecha = @fecha.to_date      
+      @fecha = @fecha.to_date
       if @doctor.reservations == []
         flash.now[:danger] = "Empleado no tiene ninguna reserva para esta fecha"
         @reserva = "Reservar"
