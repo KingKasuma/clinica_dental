@@ -11,11 +11,10 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.hidden_field :employee_id, value: @treatment.id %>
-  </div>
-  <div class="field">
-    <%= f.label :patient_id %><br>
-    <%= f.text_field :patient_id %>
+    <%= f.hidden_field :employee_id, value: @employee %>
+    <%= f.hidden_field :patient_id, value: current_user.patient.id%>
+    <%= f.hidden_field :fecha, value: @fecha %>
+    <%= f.hidden_field :hora, value: @hora %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,31 +1,58 @@
-<h1>Reservaciones</h1>
 <div class="container">
   <div class="row jumbotron">
-
-    <!--Buscador-->
-    <div class="col-sm-3 well">
-      <%= form_tag reservations_path, method: :get, class: "form-horizontal" do%>
-        <% unless current_user.has_rol("paciente") %>
-        <div class="form-group">
-          <div class="col-md-10 col-md-offset-1">
-              <%= text_field_tag :nombres, params[:nombres], class: "form-control", placeholder: "Nombre del Paciente" %>
-          </div>
-        </div>
-        <% end %>
-        <div class="form-group">
-          <div class="col-md-offset-1 col-md-10">
-            <%= select_tag :employee_id, options_from_collection_for_select(Employee.where.not("cargo LIKE ?",""), "id", "nombre", params[:employee_id]), prompt: "Doctor", class: "form-control" %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-md-offset-1 col-md-10">
-              <%= text_field_tag :fecha, params[:fecha], class: "form-control datepicker", placeholder:"Elija una fecha" %>
-          </div>
-        </div>
-        <%= submit_tag "Buscar", name: nil, class: "btn btn-primary" %>
-      <% end %>
+    <div class="container">
+      <h1>Reservaciones</h1>
     </div>
-    <!--Buscador-->
+    <!--Buscador de sucursales-->
+    <div class="col-md-5">
+      <div class="row well">
+        <%= form_tag reservations_path, method: :get, class: "form-horizontal" do%>
+                <div class="container">
+                  <h3>Busqueda</h3>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-offset-1 col-md-10">
+                    <%= select_tag :sucursal, options_from_collection_for_select(Sucursal.all, "id", "direccion", params[:sucursal]), prompt: "Sucursal", class: "form-control" %>
+                  </div>
+                </div>
+                <% if @sucursal.present? %>
+                  <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                      <%= select_tag :employee_id, options_from_collection_for_select(Employee.where("cargo NOT LIKE ? and sucursal_id LIKE ?","",@sucursal), "id", "nombre", params[:employee_id]), :onchange => 'habilitar_fecha(this.value);', prompt: "Doctor", class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <%= text_field_tag :fecha, params[:fecha], class: "form-control datepicker", placeholder:"Elija una fecha" %>
+                    </div>
+                  </div>
+                <% end %>
+
+                <%= submit_tag "Buscar", name: nil, class: "btn btn-primary" %>
+              <% end %>
+      </div>
+      <div class="row well">
+        <h3>Informacion</h3>
+        <h5>Reserva programada</h5>
+        <hr>
+          <% @reservations.each do |re| %>
+          <div class="col-md-7">
+
+              <%= link_to l(re.fecha, format: :long), reservation_path(re) %><br>
+              <%= l(re.hora, format: :very_short) %><br>
+              <%= re.employee.full_name %><br>
+              <hr>
+          </div>
+          <div class="col-md-5">
+            <%= link_to 'Cambiar fecha', reservation_path(re), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
+            <br>
+            <br>
+            <hr>
+          </div>
+
+          <% end %>
+      </div>
+    </div>
 
     <!--Espacio en blanco en medio de ambos-->
     <div class="col-sm-1">
@@ -33,38 +60,46 @@
     </div>
     <!--Espacio en blanco en medio de ambos-->
 
-    <div class="col-sm-8 well" style="background-color:#c5d8de;">
+    <div class="col-sm-6 well" style="background-color:#c5d8de;">
       <div class="table-responsive">
         <% if @fecha.present? %>
+        <div class="container">
           <h3>Horarios para el <%= l(@fecha, format: :long) %></h3>
+        </div>
         <% else %>
+        <div class="container">
           <h3>Horario sin fecha</h3>
+        </div>
         <% end %>
-        <table class="table table-hover table-bordered" id="transactions">
+        <table class="table table-hover" id="transactions">
           <thead>
             <tr>
               <th style="text-align:center">Horarios</th>
-              <th style="text-align:center">Opciones</th>
+              <th style="text-align:center">Estado</th>
             </tr>
           </thead>
           <tbody>
             <% @horas.each_with_index do |hora,index| %>
               <tr>
-                <td><%= @hora.digital(hora) %></td>
-                <td>
-                  <% if @reservas.present? %>
+                <% if @reservas.present? %>
+                  <td>
+                    <%= link_to @hora.digital(hora), {:controller => "reservations", :action => "reservacion", :employee_id => @doctor.id, :fecha => @fecha, :hora => hora }, class: "btn btn-success btn-lg", method: :post %>
+                  </td>
                       <% @reservas.each do |reser| %>
-                        <% if (reser.hora.hour == hora.to_i) && (reser.hora.min == (hora%(hora.to_i)*100).to_i)%>
-                          <%= link_to "Reservado" ,root_path ,class: "btn btn-danger disabled"%>
-                        <% else %>
-                          <%= link_to "Reservar", {:controller => "reservations", :action => "new", :employee_id => @doctor.id, :fecha => @fecha, :hora => hora }, class: "btn btn-success" %>
+                        <% if (reser.hora.hour == hora.to_i) && (reser.hora.min == (hora.to_f%(hora.to_i)*100).to_i)%>
+                        <td>
+                          <%= link_to "Reservardo" ,root_path ,class: "btn btn-danger disabled"%>
+                        </td>
                         <% end %>
                       <% end %>
+                  <% else %>
+                  <td>
+                      <%= link_to @hora.digital(hora), {:controller => "reservations", :action => "reservacion", :employee_id => @doctor, :fecha => @fecha, :hora => hora }, class: "btn btn-success btn-lg", method: :post %>
+                  </td>
+
                   <% end %>
-                  <% if @reserva.present? %>
-                      <%= link_to "Reservar", {:controller => "reservations", :action => "new", :employee_id => @doctor.id, :fecha => @fecha, :hora => hora }, class: "btn btn-success" %>
-                  <% end %>
-                </td>
+
+
               </tr>
             <% end %>
           </tbody>
@@ -72,6 +107,4 @@
       </div>
 
     </div>
-
-
   </div>

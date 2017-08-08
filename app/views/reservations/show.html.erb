@@ -1,24 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <div class="list-group">
+        <li class="list-group-item list-group-item-success"><strong>Fecha: </strong> <%= l(@reservation.fecha, format: :long) %> </li>
+        <li class="list-group-item list-group-item-success"><strong>Hora: </strong> <%= l(@reservation.hora, format: :very_short) %> </li>
+        <li class="list-group-item list-group-item-success"><strong>Doctor: </strong>   <%= @reservation.employee.full_name %> </li>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @reservation.nombre %>
-</p>
-
-<p>
-  <strong>Descripcion:</strong>
-  <%= @reservation.descripcion %>
-</p>
-
-<p>
-  <strong>Employee:</strong>
-  <%= @reservation.employee %>
-</p>
-
-<p>
-  <strong>Patient:</strong>
-  <%= @reservation.patient %>
-</p>
-
-<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
-<%= link_to 'Back', reservations_path %>
+<div class="container">
+  <%= link_to 'Cambiar de fecha', reservation_path(@reservation), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
+  <%= link_to 'Atras', reservations_path, class: "btn btn-primary" %>
+</div>

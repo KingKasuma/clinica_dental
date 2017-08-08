@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope '/(:locale)', defaults: { locale: 'es' }, constraints: { locale: /en|es/ } do  
+  scope '/(:locale)', defaults: { locale: 'es' }, constraints: { locale: /en|es/ } do
     root to: 'welcome#index'
     resources :sucursals
     resources :reservations
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get '/lista' => 'prostheses#lista'
     get '/entregado/:id' => 'prostheses#entregado'
     get '/diary' => 'reservations#diary'
+    post '/reservacion' => 'reservations#reservacion'
   end
 
 
