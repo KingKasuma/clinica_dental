@@ -3,6 +3,77 @@ es:
   site_name: 'Mi sitio'
   welcome: 'Bienvenido a nuestro maravilloso sitio web'
 
+  errors:
+    messages:
+      expired: "ha expirado, por favor pide una nueva"
+      not_found: "no encontrado"
+      already_confirmed: "ya fue confirmada. Intenta ingresar."
+      not_locked: "no ha sido bloqueada"
+      not_saved:
+        one: "Ha habido 1 error:"
+        other: "Han habido %{count} errores:"
+
+  devise:
+    confirmations:
+      confirmed: "Tu correo electronico ha sido confirmado exitosamente."
+      send_instructions: "Recibiras un correo con las instrucciones de como confirmar tu direccion de correo en unos pocos minutos."
+      send_paranoid_instructions: "Si tu direccion de correo existe en nuestra base de datos, Recibiras un correo con las instrucciones de como confirmar tu direccion de correo en unos pocos minutos."
+    failure:
+      already_authenticated: 'Ya iniciaste sesión.'
+      unauthenticated: 'Tienes que registrarte o iniciar sesión antes de continuar.'
+      unconfirmed: 'Tienes que confirmar tu cuenta antes de continuar.'
+      locked: 'Tu cuenta está bloqueada.'
+      invalid: 'Email o contraseña inválidos.'
+      invalid_token: 'Token de autentificación inválido.'
+      timeout: 'Tu sesión ha expirado. Inicia sesión nuevamente.'
+      inactive: 'Tu cuenta aun no ha sido activada.'
+      last_attempt: "You have one more attempt before your account is locked."
+      not_found_in_database: "%{authentication_keys} o contraseña invalidos."
+    mailer:
+      confirmation_instructions:
+        subject: "Instrucciones de confirmacion"
+      reset_password_instructions:
+        subject: "Instrucciones para reiniciar Contraseña"
+      unlock_instructions:
+        subject: "Desbloquear instrucciones"
+      password_change:
+        subject: "Contraseña modificada"
+    omniauth_callbacks:
+      failure: "No se pudo autenticar de %{kind} porque \"%{reason}\"."
+      success: "Autenticacion exitosa de %{kind} cuenta."
+    passwords:
+      no_token: "No puede acceder a esta página sin proceder de un correo electrónico de restablecimiento de contraseña. Si procede de un correo electrónico de restablecimiento de contraseña, asegúrese de utilizar la URL completa proporcionada."
+      send_instructions: "Recibirá un correo electrónico con instrucciones sobre cómo restablecer su contraseña en unos minutos."
+      send_paranoid_instructions: "Si su dirección de correo electrónico existe en nuestra base de datos, recibirá un enlace de recuperación de contraseña en su dirección de correo electrónico en unos minutos."
+      updated: "Tu contraseña ha sido cambiada exitosamente. Ahora has iniciado sesión."
+      updated_not_active: "Tu contraseña ha sido cambiada exitosamente."
+    registrations:
+      destroyed: "¡Adiós! Su cuenta se ha cancelado correctamente. Esperamos volver a verte pronto."
+      signed_up: "¡Bienvenido! Se ha registrado correctamente."
+      signed_up_but_inactive: "Se ha registrado correctamente. Sin embargo, no hemos podido iniciar sesión porque su cuenta aún no está activada."
+      signed_up_but_locked: "Se ha registrado correctamente. Sin embargo, no hemos podido iniciar sesión porque su cuenta está bloqueada."
+      signed_up_but_unconfirmed: "Se ha enviado un mensaje con un enlace de confirmación a su dirección de correo electrónico. Siga el enlace para activar su cuenta."
+      update_needs_confirmation: "Has actualizado tu cuenta correctamente, pero debemos verificar tu nueva dirección de correo electrónico. Por favor revise su correo electrónico y siga el enlace de confirmación para confirmar su nueva dirección de correo electrónico."
+      updated: "Su cuenta se ha actualizado correctamente."
+    sessions:
+      signed_in: "Sesion iniciada correctamente."
+      signed_out: "Sesion cerrada correctamente."
+      already_signed_out: "Cerro sesion correctamente."
+    unlocks:
+      send_instructions: "Recibirá un correo electrónico con instrucciones sobre cómo desbloquear su cuenta en unos minutos."
+      send_paranoid_instructions: "Si tu cuenta existe, recibirás un correo electrónico con instrucciones de cómo desbloquearlo en unos minutos."
+      unlocked: "Su cuenta se ha desbloqueado correctamente. Por favor inicie sesión para continuar."
+  errors:
+    messages:
+      already_confirmed: "Ya está confirmado, por favor intenta iniciar sesión"
+      confirmation_period_expired: "Necesita ser confirmado dentro de %{period}, porfavor solicite uno nuevo"
+      expired: "Ha caducado, por favor solicite uno nuevo"
+      not_found: "no encontrado"
+      not_locked: "No estaba bloqueado"
+      not_saved:
+        one: "1 error prohibido este %{resource} sea guardado:"
+        other: "%{count} errores prohiben que este %{resource} se guarde:"
+
   number:
     # Used in number_with_delimiter()
     # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
@@ -102,8 +173,8 @@ es:
     errors:
       template:
         header:
-          one:   "no se pudo guardar este {{model}} porque se encontró 1 error"
-          other:  "no se pudo guardar este {{model}} porque se encontraron {{count}} errores"
+          one:   "no se pudo guardar este %{model} porque se encontró 1 error"
+          other:  "no se pudo guardar este %{model} porque se encontraron %{count} errores"
         # The variable :count is also available
         body: "Se encontraron problemas con los siguientes campos:"
 
@@ -117,16 +188,16 @@ es:
         accepted: "debe ser aceptado"
         empty: "no puede estar vacío"
         blank: "no puede estar en blanco"
-        too_long: "es demasiado largo ({{count}} caracteres máximo)"
-        too_short: "es demasiado corto ({{count}} caracteres mínimo)"
-        wrong_length: "no tiene la longitud correcta ({{count}} caracteres exactos)"
+        too_long: "es demasiado largo (%{count} caracteres máximo)"
+        too_short: "es demasiado corto (%{count} caracteres mínimo)"
+        wrong_length: "no tiene la longitud correcta (%{count} caracteres exactos)"
         taken: "ya está en uso"
         not_a_number: "no es un número"
-        greater_than: "debe ser mayor que {{count}}"
-        greater_than_or_equal_to: "debe ser mayor que o igual a {{count}}"
-        equal_to: "debe ser igual a {{count}}"
-        less_than: "debe ser menor que {{count}}"
-        less_than_or_equal_to: "debe ser menor que o igual a {{count}}"
+        greater_than: "debe ser mayor que %{count}"
+        greater_than_or_equal_to: "debe ser mayor que o igual a %{count}"
+        equal_to: "debe ser igual a %{count}"
+        less_than: "debe ser menor que %{count}"
+        less_than_or_equal_to: "debe ser menor que o igual a %{count}"
         odd: "debe ser impar"
         even: "debe ser par"
 
