@@ -1,35 +1,106 @@
 <div class="container">
-  <div class="row jumbotron">
-    <!--Buscador-->
-    <div class="col-md-3 well">
-      <%= form_tag diary_path, method: :get, class: "form-horizontal" do%>
-        <div class="form-group">
-          <div class="col-md-offset-1 col-md-10">
-              <%= text_field_tag :fecha, params[:fecha], class: "form-control datepicker", placeholder:"Elija una fecha" %>              
-          </div>
+  <div class="row jumbotron" style="background-color:#989b9e;">
+    <div class="col-md-7">
+      <div class="row well">
+        <%= form_tag diary_path, method: :get, class: "form-horizontal" do%>
+            <div class="container">
+              <h3>Reservar hora para Paciente</h2>
+            </div>
+            <hr>
+            <div class="container">
+              <h4>Verificar Paciente</h4>
+              <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                  <%= text_field_tag :nombres, params[:nombres], class: "form-control", placeholder: "Nombre" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                  <%= text_field_tag :apellido_paterno, params[:apellido_paterno], class: "form-control", placeholder: "Apellido Paterno" %>
+                </div>
+              </div>
+            </div>
+            <% if @patient.present? %>
+            <% if @bandera == 2 %>
+            <hr>
+              <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                  <%= text_field_tag :fecha , params[:fecha], class: "form-control datepicker", placeholder: "Fecha"%>
+                </div>
+              </div>
+            <% end %>
+            <% end %>
+
+          <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+        <% end %>
+      </div>
+      
+        <div class="row well">
+          <h2>Informacion</h2>
+          <h4>Reserva programada</h4>
+          <hr>
+            <% @reservations.each do |re| %>
+            <div class="col-md-7">
+
+                <%= link_to l(re.fecha, format: :long), reservation_path(re), class: "btn btn-info" %><br>
+                <%= l(re.hora, format: :very_short) %><br>
+                <%= re.patient.full_name %><br>
+                <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>
+                <hr>
+            </div>
+            <div class="col-md-5">
+              <%= link_to 'Cambiar fecha', reservation_path(re), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
+
+              <br>
+              <br>
+              <hr>
+            </div>
+
+            <% end %>
         </div>
-        <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
-      <% end %>
-    </div>
-    <!--Buscador-->
-
-    <div class="col-md-1">
 
     </div>
-    <div class="col-md-8 well" style="background-color:#c5d8de;">
-      <h3>Agenda libre del Doctor</h3>
+
+    <div class="col-md-offset-1 col-md-4 well" style="background-color:#c5d8de;">
       <div class="table-responsive">
+        <% if @fecha.present? %>
+        <div class="container">
+          <h3>Horarios para el <%= l(@fecha, format: :long) %></h3>
+        </div>
+        <% else %>
+        <div class="container">
+          <h3>Horario sin fecha</h3>
+        </div>
+        <% end %>
         <table class="table table-hover" id="transactions">
           <thead>
             <tr>
-              <th>Horario:</th>
-              <th colspan="3">Opciones:</th>
+              <th style="text-align:center">Horarios</th>
+              <th style="text-align:center">Estado</th>
             </tr>
           </thead>
           <tbody>
-            <% @horas.each do |hora| %>
-                <td class="concept"><%= hora %></td>
-                <td></td>
+            <% @horas.each_with_index do |hora,index| %>
+              <tr>
+                <% if @reservas.present? %>
+                  <td>
+                    <%= link_to @hora.digital(hora), {:controller => "reservations", :action => "reservacion", :employee_id => @doctor.id, :fecha => @fecha, :hora => hora }, class: "btn btn-success btn-lg", method: :post %>
+                  </td>
+                      <% @reservas.each do |reser| %>
+                        <% if (reser.hora.hour == hora.to_i) && (reser.hora.min == (hora.to_f%(hora.to_i)*100).to_i)%>
+                        <td>
+                          <%= link_to "Reservardo" ,root_path ,class: "btn btn-danger disabled"%>
+                        </td>
+                        <% end %>
+                      <% end %>
+                  <% else %>
+                  <td>
+                      <%= link_to @hora.digital(hora), {:controller => "reservations", :action => "reservacion", :employee_id => @doctor, :fecha => @fecha, :hora => hora }, class: "btn btn-success btn-lg", method: :post %>
+                  </td>
+
+                  <% end %>
+
+
               </tr>
             <% end %>
           </tbody>

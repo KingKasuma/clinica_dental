@@ -11,6 +11,11 @@
 </div>
 
 <div class="container">
-  <%= link_to 'Cambiar de fecha', reservation_path(@reservation), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
-  <%= link_to 'Atras', reservations_path, class: "btn btn-primary" %>
+  <% if current_user.has_rol("Paciente") %>
+    <%= link_to 'Cambiar de fecha', reservation_path(@reservation), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
+    <%= link_to 'Atras', reservations_path, class: "btn btn-primary" %>
+  <% elsif current_user.has_rol("Doctor") %>
+    <%= link_to "Atras", diary_path, class: "btn btn-default" %>
+  <% end %>
+
 </div>
