@@ -65,7 +65,7 @@
           <%= f.label :ortondoncista %>
       </div>
       <div class="col-md-9">
-        <%= f.collection_select(:employee_id, Employee.where("role_id LIKE ?","4"), :id, :nombre, {:prompt=>'Seleccione un ortodoncista'}, class: "form-control") %>
+        <%= f.collection_select(:employee_id, Employee.where("role_id = ?","4"), :id, :nombre, {:prompt=>'Seleccione un ortodoncista'}, class: "form-control") %>
       </div>
     </div>
 
