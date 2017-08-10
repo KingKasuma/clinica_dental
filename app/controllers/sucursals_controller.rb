@@ -28,7 +28,7 @@ class SucursalsController < ApplicationController
 
     respond_to do |format|
       if @sucursal.save
-        format.html { redirect_to @sucursal, notice: 'Sucursal was successfully created.' }
+        format.html { redirect_to @sucursal, notice: 'Sucursal fue creado correctamente.' }
         format.json { render :show, status: :created, location: @sucursal }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class SucursalsController < ApplicationController
   def update
     respond_to do |format|
       if @sucursal.update(sucursal_params)
-        format.html { redirect_to @sucursal, notice: 'Sucursal was successfully updated.' }
+        format.html { redirect_to @sucursal, notice: 'Sucursal fue modificado correctamente.' }
         format.json { render :show, status: :ok, location: @sucursal }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class SucursalsController < ApplicationController
   def destroy
     @sucursal.destroy
     respond_to do |format|
-      format.html { redirect_to sucursals_url, notice: 'Sucursal was successfully destroyed.' }
+      format.html { redirect_to sucursals_url, notice: 'Sucursal fue eliminado correctamente.' }
       format.json { head :no_content }
     end
   end
