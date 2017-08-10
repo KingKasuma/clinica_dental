@@ -6,7 +6,7 @@ class ReservationsController < ApplicationController
   def index
     @horas = [9.00,9.30,10.00,10.30,11.00,11.30,12.00,14.30,15.00,15.30,16.00,16.30,17.00,17.30,18.00,18.30,19.00,19.30,20.00]
     @hora = Reservation.new
-    @reservations = Reservation.where("patient_id LIKE ?", current_user.patient.id).order("id DESC")
+    @reservations = Reservation.where("patient_id = ?", current_user.patient.id).order("id DESC")
 
     if params[:sucursal].present?
       @sucursal = Sucursal.find(params[:sucursal])
