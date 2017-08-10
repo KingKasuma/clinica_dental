@@ -56,6 +56,7 @@ end
 
 group :development do
   # Use mysql as the database for Active Record
+  gem 'sqlite3'
   gem 'mysql2', '>= 0.3.13', '< 0.5'
 end
 
