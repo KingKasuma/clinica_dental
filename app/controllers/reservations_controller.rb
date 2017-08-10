@@ -113,7 +113,7 @@ class ReservationsController < ApplicationController
 
     @horas = [9.00,9.30,10.00,10.30,11.00,11.30,12.00,14.30,15.00,15.30,16.00,16.30,17.00,17.30,18.00,18.30,19.00,19.30,20.00]
     @hora = Reservation.new
-    @reservations = Reservation.where("employee_id LIKE ?", current_user.employee.id).order("id DESC")
+    @reservations = Reservation.where("employee_id = ?", current_user.employee.id).order("id DESC")
 
     #Buscador de nombre y apellido
     @patients = Patient.order("nombres DESC")
