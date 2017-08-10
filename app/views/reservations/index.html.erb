@@ -18,7 +18,7 @@
                 <% if @sucursal.present? %>
                   <div class="form-group">
                     <div class="col-md-offset-1 col-md-10">
-                      <%= select_tag :employee_id, options_from_collection_for_select(Employee.where("cargo NOT LIKE ? and sucursal_id LIKE ?","",@sucursal), "id", "nombre", params[:employee_id]), :onchange => 'habilitar_fecha(this.value);', prompt: "Doctor", class: "form-control" %>
+                      <%= select_tag :employee_id, options_from_collection_for_select(Employee.where("cargo NOT LIKE ? and sucursal_id = ?","",@sucursal), "id", "nombre", params[:employee_id]), :onchange => 'habilitar_fecha(this.value);', prompt: "Doctor", class: "form-control" %>
                     </div>
                   </div>
                   <div class="form-group">
