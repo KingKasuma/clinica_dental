@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
         @doctor.reservations.each do |reserva|
           if reserva.fecha.to_s == params[:fecha]
             #Doctor seleccionado con alguna reservacion con fecha
-            @reservas = @doctor.reservations.where("fecha LIKE ?", @fecha)
+            @reservas = @doctor.reservations.where("fecha = ?", @fecha)
           end
         end
       end
@@ -148,7 +148,7 @@ class ReservationsController < ApplicationController
         @doctor.reservations.each do |reserva|
           if reserva.fecha.to_s == params[:fecha]
             #Doctor seleccionado con alguna reservacion con fecha
-            @reservas = @doctor.reservations.where("fecha LIKE ?", @fecha)
+            @reservas = @doctor.reservations.where("fecha = ?", @fecha)
           end
         end
       end
