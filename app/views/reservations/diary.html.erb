@@ -1,16 +1,46 @@
 <div class="container">
   <div class="row jumbotron" style="background-color:#989b9e;">
-    <div class="col-md-offset-4 col-md-5 well">
+    <div class="col-md-6 well">
           <h2>Informacion</h2>
-          <h4>Reserva programada</h4>
+          <h4>Pacientes con atencion</h4>
           <hr>
             <% @reservations.each do |re| %>
-                <%= link_to l(re.fecha, format: :long), reservation_path(re), class: "btn btn-info" %><br>
-                <%= l(re.hora, format: :very_short) %><br>
-                <%= re.patient.full_name %><br>
-                <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>
-                <hr>            
+              <% unless re.estado.downcase == "atendido" %>
+                <div class="col-md-7">
+                  <%= l(re.fecha, format: :long) %><br>
+                  <%= l(re.hora, format: :very_short) %><br>
+                  <p class="link"><strong><%= link_to re.patient.full_name, medical_history_path(re.patient.medical_history.id), class: "link" %></strong></p>
+                  <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>
+                  <hr>
+                </div>
+                <div class="col-md-5">
+                    <h4>Opciones</h4>
+                    <div class="container">
+                      <%= link_to 'Atendido', {:controller => "reservations", :action => "atendido", :id => re.id}, class: "btn btn-warning" %>
+
+                    </div>
+                    <hr>
+                </div>
+                <% end %>
             <% end %>
+
+    </div>
+    <div class="col-md-offset-1 col-md-5 well">
+      <h2>Informacion</h2>
+      <h4>Pacientes Atendidos</h4>
+      <hr>
+        <% @reservations.each do |re| %>
+          <% if re.estado.downcase == "atendido" %>
+          <div class="col-md-offset-1 col-md-10">
+            <%= l(re.fecha, format: :long) %><br>
+            <%= l(re.hora, format: :very_short) %><br>
+            <p class="link"><strong><%= link_to re.patient.full_name, medical_history_path(re.patient.medical_history.id), class: "link" %></strong></p>
+            <h6>Atendido hace <%= distance_of_time_in_words_to_now(re.updated_at)%> atras</h6>
+            <hr>
+          </div>
+          <% end %>
+
+        <% end %>
     </div>
   </div>
 </div>

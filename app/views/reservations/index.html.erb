@@ -36,19 +36,23 @@
         <h5>Reserva programada</h5>
         <hr>
           <% @reservations.each do |re| %>
+          <% unless re.estado.downcase == "atendido" %>
           <div class="col-md-7">
-
-              <%= link_to l(re.fecha, format: :long), reservation_path(re) %><br>
+              <%= link_to l(re.fecha, format: :long), reservation_path(re), class: "btn btn-info" %><br>
               <%= l(re.hora, format: :very_short) %><br>
               <%= re.employee.full_name %><br>
               <hr>
           </div>
           <div class="col-md-5">
-            <%= link_to 'Cambiar fecha', reservation_path(re), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
+            <% if re.tipo.downcase == "normal" %>
+              <%= link_to 'Cambiar fecha', reservation_path(re), method: :delete, data: { confirm: 'Si elige otra fecha, la fecha escogida anteriormente sera eliminada' }, class: "btn btn-warning"%>
+            <% end %>
             <br>
             <br>
             <hr>
           </div>
+          <% end %>
+
 
           <% end %>
       </div>

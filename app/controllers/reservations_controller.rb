@@ -187,7 +187,27 @@ class ReservationsController < ApplicationController
     entero = hora.to_i
     decimal = ((hora.to_f % entero)*100).to_i
     hora = entero.to_s + ":" + decimal.to_s
-    @reservation = Reservation.new(employee_id: employee.id, patient_id: current_user.patient.id, fecha: fecha, hora: hora, estado: "Reservado")
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: current_user.patient.id, fecha: fecha, hora: hora, estado: "Reservado", tipo: "Normal")
+    @duple = Reservation.where(employee_id:employee.id, fecha: fecha, hora: hora)
+    if (@duple.present?)
+      flash[:danger] = "Fecha ya reservada, porfavor seleccione otra fecha"
+      redirect_to reservations_path
+    else
+      if @reservation.save
+        redirect_to reservations_path
+        flash[:success] = "Reserva registrada exitosamente"
+      end
+    end
+  end
+
+  def reservacion_especial
+    employee = Employee.find(params[:employee_id])
+    fecha = params[:fecha]
+    hora = params[:hora]
+    entero = hora.to_i
+    decimal = ((hora.to_f % entero)*100).to_i
+    hora = entero.to_s + ":" + decimal.to_s
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: current_user.patient.id, fecha: fecha, hora: hora, estado: "Reservado", tipo: "Especial")
     @duple = Reservation.where(employee_id:employee.id, fecha: fecha, hora: hora)
     if (@duple.present?)
       flash[:danger] = "Fecha ya reservada, porfavor seleccione otra fecha"
@@ -201,14 +221,14 @@ class ReservationsController < ApplicationController
   end
 
   def reservacion_secretaria
-    patient = patient.find(params[:patient_id])
+    patient = Patient.find(params[:patient_id])
     employee = Employee.find(params[:employee_id])
     fecha = params[:fecha]
     hora = params[:hora]
     entero = hora.to_i
     decimal = ((hora.to_f % entero)*100).to_i
     hora = entero.to_s + ":" + decimal.to_s
-    @reservation = Reservation.new(employee_id: employee.id, patient_id: patient.id, fecha: fecha, hora: hora, estado: "Reservado")
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: patient.id, fecha: fecha, hora: hora, estado: "Reservado",tipo: "Normal")
     @duple = Reservation.where(employee_id: employee.id, fecha: fecha, hora:hora)
     if (@duple.present?)
       flash.now[:danger] = "Fecha ya reservada, porqfavor seleccione otra fecha"
@@ -218,6 +238,35 @@ class ReservationsController < ApplicationController
         redirect_to diary_secretary_path
         flash.now[:success] = "Reserva registrada exitosamente"
       end
+    end
+  end
+
+  def reservacion_secretaria_especial
+    patient = Patient.find(params[:patient_id])
+    employee = Employee.find(params[:employee_id])
+    fecha = params[:fecha]
+    hora = params[:hora]
+    entero = hora.to_i
+    decimal = ((hora.to_f % entero)*100).to_i
+    hora = entero.to_s + ":" + decimal.to_s
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: patient.id, fecha: fecha, hora: hora, estado: "Reservado",tipo: "Especial")
+    @duple = Reservation.where(employee_id: employee.id, fecha: fecha, hora:hora)
+    if (@duple.present?)
+      flash.now[:danger] = "Fecha ya reservada, porqfavor seleccione otra fecha"
+      redirect_to diary_secretary_path
+    else
+      if @reservation.save
+        redirect_to diary_secretary_path
+        flash.now[:success] = "Reserva registrada exitosamente"
+      end
+    end
+  end
+
+  def atendido
+    @reservation = Reservation.find(params[:id])
+    if @reservation.update(estado:"Atendido")
+      flash[:success] = "Paciente atendido"
+      redirect_to diary_path
     end
   end
 

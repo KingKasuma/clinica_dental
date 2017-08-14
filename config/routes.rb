@@ -20,9 +20,12 @@ Rails.application.routes.draw do
     get '/entregado/:id' => 'prostheses#entregado'
     get '/diary' => 'reservations#diary'
     post '/reservacion' => 'reservations#reservacion'
+    post '/reservacion_especial' => 'reservations#reservacion_especial'
     get '/deudas' => 'debts#patient'
     get '/diary_secretary' => 'reservations#diary_secretary'
     post '/diary_secretary' => 'reservations#reservacion_secretaria'
+    post '/diary_secretary_especial' => 'reservations#reservacion_secretaria_especial'
+    get '/atendido/:id' => 'reservations#atendido'
   end
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814050433) do
+ActiveRecord::Schema.define(version: 20170814210142) do
 
   create_table "account_books", force: :cascade do |t|
     t.text     "descripcion", limit: 65535
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170814050433) do
     t.date     "fecha"
     t.time     "hora"
     t.string   "estado",      limit: 255
+    t.string   "tipo",        limit: 255
   end
 
   add_index "reservations", ["employee_id"], name: "index_reservations_on_employee_id", using: :btree
