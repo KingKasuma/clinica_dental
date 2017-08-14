@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get '/diary' => 'reservations#diary'
     post '/reservacion' => 'reservations#reservacion'
     get '/deudas' => 'debts#patient'
+    get '/diary_secretary' => 'reservations#diary_secretary'
+    post '/diary_secretary' => 'reservations#reservacion_secretaria'
   end
 
 

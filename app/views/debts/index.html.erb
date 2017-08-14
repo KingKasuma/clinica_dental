@@ -8,22 +8,29 @@
       <%= form_tag debts_path, method: :get, class: "form-horizontal" do%>
         <div class="form-group">
           <div class="col-md-10 col-md-offset-1">
-              <%= text_field_tag :CI, params[:CI], class: "form-control", placeholder: "Nombres" %>
+              <%= text_field_tag :CI, params[:CI], class: "form-control", placeholder: "Carnet de Identidad" %>
           </div>
         </div>
-        <% if  @paciente.present?%>
-          <div class="form-group">
-            <div class="col-md-10 col-md-offset-1">
-                <%= text_field_tag :pago, params[:pago], class: "form-control", placeholder: "Cantidad a pagar" %>
+        <% unless current_user.has_rol("Doctor") %>
+          <% if  @paciente.present?%>
+            <div class="form-group">
+              <div class="col-md-10 col-md-offset-1">
+                  <%= text_field_tag :pago, params[:pago], class: "form-control", placeholder: "Cantidad a pagar" %>
+              </div>
             </div>
-          </div>
-        <% end %>
-        <% if @paciente.present? %>
-          <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
-          <%= link_to "Buscar otra vez", debts_path, class: "btn btn-info" %>
-        <% else %>
+          <% end %>
+        <% end %>        
+        <% if current_user.has_rol("Doctor") %>
           <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+        <% else %>
+          <% if @paciente.present? %>
+            <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
+            <%= link_to "Buscar otra vez", debts_path, class: "btn btn-info" %>
+          <% else %>
+            <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+          <% end %>
         <% end %>
+
       <% end %>
     </div>
     <!--Buscador-->
@@ -34,7 +41,7 @@
           <hr>
           <h4><%= @paciente.full_name %></h4>
           <h4><%= @paciente.telefono %></h4>
-          <h4><%= @paciente.email %></h4>          
+          <h4><%= @paciente.email %></h4>
           <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
         <% else %>
           <h2>Informacion</h2>
