@@ -3,6 +3,11 @@ class DebtsController < ApplicationController
 
   # GET /debts
   # GET /debts.json
+  def patient
+    @paciente = current_user.patient
+    @account = @paciente.account_books.last
+  end
+
   def index
 
     if params[:CI].present?
