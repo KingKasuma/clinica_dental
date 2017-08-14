@@ -34,7 +34,7 @@
           <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
         <% end %>
       </div>
-      
+
         <div class="row well">
           <h2>Informacion</h2>
           <h4>Reserva programada</h4>
@@ -45,7 +45,7 @@
                 <%= link_to l(re.fecha, format: :long), reservation_path(re), class: "btn btn-info" %><br>
                 <%= l(re.hora, format: :very_short) %><br>
                 <%= re.patient.full_name %><br>
-                <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>
+                <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>                
                 <hr>
             </div>
             <div class="col-md-5">

@@ -13,6 +13,7 @@
                 <th>Costo</th>
               <% end %>
               <th>Examen Dental:</th>
+              <th>Estado</th>
               <th colspan="3">Opciones:</th>
             </tr>
           </thead>
@@ -28,6 +29,7 @@
                   <td><%= prosthesis.costo %></td>
                 <% end %>
                 <td><%= prosthesis.treatment.dental_examination.posicion? %> <%= prosthesis.treatment.dental_examination.numero_diente %></td>
+                <td><%= prosthesis.estado %></td>
                 <% if prosthesis.costo.nil? && current_user.has_rol("ortondoncista") %>
                     <td><%= link_to 'Verificar', edit_prosthesis_path(prosthesis), class: "btn btn-warning" %></td>
                 <% else %>

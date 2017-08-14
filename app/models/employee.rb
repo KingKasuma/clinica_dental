@@ -2,7 +2,7 @@ class Employee < ActiveRecord::Base
   belongs_to :role
   belongs_to :sucursal
   has_one :user, dependent: :destroy
-  has_one :treatment, dependent: :destroy
+  has_many :treatments, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :prosthesis, dependent: :destroy
 

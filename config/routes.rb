@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :employees
     resources :roles
     devise_for :users
+    resources :debts
 
 
     get '/perfil' => 'welcome#perfil'
