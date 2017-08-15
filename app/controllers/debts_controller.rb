@@ -12,9 +12,12 @@ class DebtsController < ApplicationController
 
     if params[:CI].present?
       @paciente = Patient.find_by(CI: params[:CI])
-      if @paciente.account_books.last.estado.downcase == "cancelado"
-          @account = @paciente.account_books.last
+      if @paciente.account_books.present?
+        if @paciente.account_books.last.estado.downcase == "cancelado"
+            @account = @paciente.account_books.last
+        end
       end
+
       if params[:pago].present?
         pago = params[:pago].to_i
         if @paciente.account_books == []

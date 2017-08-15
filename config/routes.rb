@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :patients
     resources :employees
     resources :roles
+    resources :reports
     devise_for :users
     resources :debts
 

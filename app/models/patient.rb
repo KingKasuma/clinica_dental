@@ -5,6 +5,20 @@ class Patient < ActiveRecord::Base
   has_many :reservations, dependent: :destroy
   has_many :account_books, dependent: :destroy
 
+  ###################Validaciones################
+  validates :nombres, presence: true
+  validates :apellido_paterno, presence: true
+  validates :apellido_materno, presence: true
+  validates :edad, presence: true
+  validates :ocupacion, presence: true
+  validates :procedencia, presence: true
+  validates :direccion, presence: true
+  validates :tiempo_disponible, presence: true
+  validates :telefono, presence: true
+  validates :email, presence: true
+  validates :CI, presence: true, uniqueness: true, length: {minimum: 6}
+  ###################Validaciones################
+
   def full_name
     "#{nombres} #{apellido_paterno} #{apellido_materno}"
   end

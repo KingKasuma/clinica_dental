@@ -56,6 +56,7 @@
       </div>
     </div>
 
+    <% if current_user.has_rol("Jefe") %>
     <div class="form-group">
       <div class="control-label col-md-2">
           <%= f.label :costo, 'Costo del tratamiento'%>
@@ -64,8 +65,10 @@
           <%= f.text_field :costo, class: "form-control"%>
       </div>
     </div>
+    <% end %>
+
 
     <div class="col-md-offset-1 col-md-11">
-      <%= f.link_to_remove "Eliminar este tratemiento", class: "btn btn-danger"%>        
+      <%= f.link_to_remove "Eliminar este tratemiento", class: "btn btn-danger"%>
     </div>
 </div>
