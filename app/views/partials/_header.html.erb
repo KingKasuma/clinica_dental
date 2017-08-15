@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">
-          <%= image_tag("clinica dental.jpg", alt: "Higiene Plus", title: "Higiene Plus", width:"10", height:"65")%>
+          <%= image_tag("clinica dental.jpg", alt: "Higiene Plus", title: "Higiene Plus",height:"45", width:"10")%>
       </a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
@@ -58,6 +58,8 @@
                 <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>
                 <li><a href="/diary"><i class="fa fa-calendar fa-2x"></i> Agenda </a></li>
                 <li role="separator" class="divider"></li>
+                <li><a href="/debts"><i class="fa fa-book fa-2x"></i> Libro de Cuentas </a></li>
+                <li><a href="/reports"><i class="fa fa-pie-chart fa-2x"></i> Reportes </a></li>
                 <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
               </ul>
             </li>
@@ -76,12 +78,27 @@
           <% end %>
           <!--Ortodoncista-->
 
+
+          <!--Secretaria-->
+          <% if current_user.has_rol("Secretaria") %>
+            <li class="dropdown iconos">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/diary_secretary"><i class="fa fa-calendar fa-2x"></i> Agenda </a></li>
+                <li><a href="/debts"><i class="fa fa-book fa-2x"></i> Pagos </a></li>
+                <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
+              </ul>
+            </li>
+          <% end %>
+          <!--Secretaria-->
+
           <!--Paciente-->
           <% if current_user.has_rol("Paciente") %>
           <li class="dropdown iconos">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="/reservations"><i class="fa fa-calendar fa-2x"></i> Reservacion </a></li>
+              <li><a href="/deudas"><i class="fa fa-money fa-2x"></i> Pagos </a></li>
               <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
             </ul>
           </li>

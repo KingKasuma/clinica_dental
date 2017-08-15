@@ -31,28 +31,7 @@ class ReservationsController < ApplicationController
         end
       end
     end
-=begin
-  @reserva = Reservation.all
-      if @reserva.nil?
-        @palabra = "Reservar"
-      else
-        @reserva.each do |reserva|
-            if reserva.fecha.to_s == "%#{params[:fecha]}%"
-              flash[:success] = "Existe fecha"
-              @horas.each do |hora|
-                entero = hora.to_i
-                decimal = ((hora%entero)*100).to_i
-                if reserva.hora.hour == entero && reserva.hora.min == decimal
-                  @palabra = "Reservado"
-                else
-                  @palabra = "Reservar"
-                end
-              end
-            end
-        end
-      end
-=end
-    end
+  end
 
 
   # GET /reservations/1
@@ -148,7 +127,7 @@ class ReservationsController < ApplicationController
         @doctor.reservations.each do |reserva|
           if reserva.fecha.to_s == params[:fecha]
             #Doctor seleccionado con alguna reservacion con fecha
-            @reservas = @doctor.reservations.where("fecha LIKE ?", @fecha)
+            @reservas = @doctor.reservations.where("fecha = ?", @fecha)
           end
         end
       end
@@ -166,6 +145,41 @@ class ReservationsController < ApplicationController
     #Buscador de fecha
   end
 
+  def diary_secretary
+    @horas = [9.00,9.30,10.00,10.30,11.00,11.30,12.00,14.30,15.00,15.30,16.00,16.30,17.00,17.30,18.00,18.30,19.00,19.30,20.00]
+    @hora = Reservation.new
+
+    if params[:CI].present?
+      @paciente = Patient.find_by(CI: params[:CI])
+      @reservations = Reservation.where("patient_id = ?", @paciente.id).order("id DESC")
+    end
+
+    if params[:sucursal].present?
+      @sucursal = Sucursal.find(params[:sucursal])
+    end
+
+    if params[:employee_id].present?
+      @doctor = Employee.find(params[:employee_id])
+      @reservations = @reservations.where("employee_id = ?", @doctor.id).order("id DESC")
+    end
+
+    if params[:fecha].present?
+      @fecha = params[:fecha]
+      @fecha = @fecha.to_date
+      if @doctor.reservations == []
+        flash.now[:danger] = "Doctor nunca ha tenido ninguna reserva"
+        @reserva = Reservation.new
+      else
+        @doctor.reservations.each do |reserva|
+          if reserva.fecha.to_s == params[:fecha]
+            #Doctor seleccionado con alguna reservacion con fecha
+            @reservas = @doctor.reservations.where("fecha = ?", @fecha)
+          end
+        end
+      end
+    end
+  end
+
   def reservacion
     employee = Employee.find(params[:employee_id])
     fecha = params[:fecha]
@@ -173,7 +187,7 @@ class ReservationsController < ApplicationController
     entero = hora.to_i
     decimal = ((hora.to_f % entero)*100).to_i
     hora = entero.to_s + ":" + decimal.to_s
-    @reservation = Reservation.new(employee_id: employee.id, patient_id: current_user.patient.id, fecha: fecha, hora: hora, estado: "Reservado")
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: current_user.patient.id, fecha: fecha, hora: hora, estado: "Reservado", tipo: "Normal")
     @duple = Reservation.where(employee_id:employee.id, fecha: fecha, hora: hora)
     if (@duple.present?)
       flash[:danger] = "Fecha ya reservada, porfavor seleccione otra fecha"
@@ -184,8 +198,76 @@ class ReservationsController < ApplicationController
         flash[:success] = "Reserva registrada exitosamente"
       end
     end
+  end
 
+  def reservacion_especial
+    employee = Employee.find(params[:employee_id])
+    fecha = params[:fecha]
+    hora = params[:hora]
+    entero = hora.to_i
+    decimal = ((hora.to_f % entero)*100).to_i
+    hora = entero.to_s + ":" + decimal.to_s
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: current_user.patient.id, fecha: fecha, hora: hora, estado: "Reservado", tipo: "Especial")
+    @duple = Reservation.where(employee_id:employee.id, fecha: fecha, hora: hora)
+    if (@duple.present?)
+      flash[:danger] = "Fecha ya reservada, porfavor seleccione otra fecha"
+      redirect_to reservations_path
+    else
+      if @reservation.save
+        redirect_to reservations_path
+        flash[:success] = "Reserva registrada exitosamente"
+      end
+    end
+  end
 
+  def reservacion_secretaria
+    patient = Patient.find(params[:patient_id])
+    employee = Employee.find(params[:employee_id])
+    fecha = params[:fecha]
+    hora = params[:hora]
+    entero = hora.to_i
+    decimal = ((hora.to_f % entero)*100).to_i
+    hora = entero.to_s + ":" + decimal.to_s
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: patient.id, fecha: fecha, hora: hora, estado: "Reservado",tipo: "Normal")
+    @duple = Reservation.where(employee_id: employee.id, fecha: fecha, hora:hora)
+    if (@duple.present?)
+      flash.now[:danger] = "Fecha ya reservada, porqfavor seleccione otra fecha"
+      redirect_to diary_secretary_path
+    else
+      if @reservation.save
+        redirect_to diary_secretary_path
+        flash.now[:success] = "Reserva registrada exitosamente"
+      end
+    end
+  end
+
+  def reservacion_secretaria_especial
+    patient = Patient.find(params[:patient_id])
+    employee = Employee.find(params[:employee_id])
+    fecha = params[:fecha]
+    hora = params[:hora]
+    entero = hora.to_i
+    decimal = ((hora.to_f % entero)*100).to_i
+    hora = entero.to_s + ":" + decimal.to_s
+    @reservation = Reservation.new(employee_id: employee.id, patient_id: patient.id, fecha: fecha, hora: hora, estado: "Reservado",tipo: "Especial")
+    @duple = Reservation.where(employee_id: employee.id, fecha: fecha, hora:hora)
+    if (@duple.present?)
+      flash.now[:danger] = "Fecha ya reservada, porqfavor seleccione otra fecha"
+      redirect_to diary_secretary_path
+    else
+      if @reservation.save
+        redirect_to diary_secretary_path
+        flash.now[:success] = "Reserva registrada exitosamente"
+      end
+    end
+  end
+
+  def atendido
+    @reservation = Reservation.find(params[:id])
+    if @reservation.update(estado:"Atendido")
+      flash[:success] = "Paciente atendido"
+      redirect_to diary_path
+    end
   end
 
   private

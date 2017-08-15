@@ -9,7 +9,7 @@
             <tr>
               <th>Nombre</th>
               <th>Protesis</th>
-              <% if current_user.employee.jefe? %>
+              <% if current_user.employee.jefe? || current_user.has_rol("ortondoncista") %>
                 <th>Costo</th>
               <% end %>
               <th>Examen Dental:</th>
@@ -24,7 +24,7 @@
               <% end %> >
                 <td><%= prosthesis.nombre %></td>
                 <td><%= prosthesis.protesis %></td>
-                <% if current_user.employee.jefe? %>
+                <% if current_user.employee.jefe? || current_user.has_rol("ortondoncista")%>
                   <td><%= prosthesis.costo %></td>
                 <% end %>
                 <td><%= prosthesis.treatment.dental_examination.posicion? %> <%= prosthesis.treatment.dental_examination.numero_diente %></td>

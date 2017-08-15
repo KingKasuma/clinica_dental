@@ -69,7 +69,6 @@ class ProsthesesController < ApplicationController
   end
 
   def entregado
-
     @prosthesis = Prosthesis.find(params[:id])
     if @prosthesis.update(estado:"entregado")
       flash[:success] = "Protesis Entregada"
