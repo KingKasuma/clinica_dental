@@ -15,11 +15,9 @@ class Employee < ActiveRecord::Base
   validates :nacionalidad, presence: true
   validates :profesion, presence: true
   validates :especialidad, presence: true
-  validates :fecha_alta, presence: true
-  validates :fecha_baja, presence: true
+  validates :fecha_alta, presence: true  
   validates :CI, presence: true, length: {minimum: 6}, uniqueness: true
   validates :email, presence: true
-  validates :cargo, presence: true
   #########Validaciones##########
 
 

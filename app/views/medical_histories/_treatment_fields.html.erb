@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <% if current_user.has_rol("Jefe") %>
+    <% if current_user.employee.jefe? %>
     <div class="form-group">
       <div class="control-label col-md-2">
           <%= f.label :costo, 'Costo del tratamiento'%>
