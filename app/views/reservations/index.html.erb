@@ -35,6 +35,7 @@
         <h3>Informacion</h3>
         <h5>Reserva programada</h5>
         <hr>
+          <% if @reservations.nil? %>
           <% @reservations.each do |re| %>
           <% unless re.estado.downcase == "atendido" %>
           <div class="col-md-7">
@@ -52,7 +53,7 @@
             <hr>
           </div>
           <% end %>
-
+          <%end%>
 
           <% end %>
       </div>
