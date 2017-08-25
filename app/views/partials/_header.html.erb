@@ -38,25 +38,30 @@
             <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>
-            <li><a href="/reservations"><i class="fa fa-calendar fa-2x"></i> Agenda </a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/sucursals"><i class="fa fa-hospital-o fa-2x"></i> Sucursal </a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/reports"><i class="fa fa-pie-chart fa-2x"></i> Reportes </a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
           </ul>
         </li>
         <!--Administrador-->
         <% else %>
-          <!--Doctor-->
-          <% if current_user.has_rol("Doctor") %>
-          <li class="dropdown iconos">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell fa-2x" aria-hidden="true"></i> Consulta especial </a>            
-          </li>
+          <!--Odontologo-->
+          <% if current_user.has_rol("Odontologo") %>
+            <% current_user.employee.reservations.each do |reservation| %>
+              <% if reservation.tipo.downcase == "especial" %>
+                <li class="iconos"><a href="diary_special"><i class="fa fa-bell fa-2x" aria-hidden="true"></i> Consulta especial </a></li>
+              <% end %>
+            <% end %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
-                <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
+                <% if current_user.employee.jefe? %>
+                  <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
+                  <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
+                <% end %>
                 <li role="separator" class="divider"></li>
                 <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>
                 <li><a href="/diary"><i class="fa fa-calendar fa-2x"></i> Agenda </a></li>
@@ -66,11 +71,11 @@
                 <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
               </ul>
             </li>
-            <!--Doctor-->
+            <!--Odontologo-->
           <% end %>
 
           <!--Ortodoncista-->
-          <% if current_user.has_rol("Ortondoncista") %>
+          <% if current_user.has_rol("Protesista") %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
@@ -87,8 +92,10 @@
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>
                 <li><a href="/diary_secretary"><i class="fa fa-calendar fa-2x"></i> Agenda </a></li>
                 <li><a href="/debts"><i class="fa fa-book fa-2x"></i> Pagos </a></li>
+                <li><a href="/reports"><i class="fa fa-pie-chart fa-2x"></i> Reportes </a></li>
                 <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
               </ul>
             </li>

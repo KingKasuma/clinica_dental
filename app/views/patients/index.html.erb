@@ -36,7 +36,9 @@
               <th>Apellido Paterno</th>
               <th>Apellido Materno</th>
               <th class="text-right">Telefono</th>
-              <th class="text-right">Historial Clinico</th>
+              <% if current_user.has_rol("Odontologo") %>
+                <th class="text-right">Historial Clinico</th>
+              <% end %>
             </tr>
           </thead>
           <tbody>
@@ -46,14 +48,15 @@
                 <td class="concept"><%= patient.apellido_paterno %></td>
                 <td class="concept"><%= patient.apellido_materno %></td>
                 <td class="category"><%= patient.telefono %></td>
+                <% if current_user.has_rol("Odontologo") %>
                 <td class="text-right">
-                  <% if patient.medical_history.nil? %>
-                    <%= link_to 'Nuevo Historial clinico', {:controller => "medical_histories",:action => "new", :id => patient.id}, class: "btn btn-success active" %>
-                  <% else %>
-                    <%= link_to 'Historial Clinico', {:controller => 'medical_histories', :action => 'show', :id => patient.medical_history.id}, class: "btn btn-warning active"%>
-                  <% end %>
-
+                    <% if patient.medical_history.nil? %>
+                      <%= link_to 'Nuevo Historial clinico', {:controller => "medical_histories",:action => "new", :id => patient.id}, class: "btn btn-success active" %>
+                    <% else %>
+                      <%= link_to 'Historial Clinico', {:controller => 'medical_histories', :action => 'show', :id => patient.medical_history.id}, class: "btn btn-warning active"%>
+                    <% end %>
                 </td>
+                <% end %>
               </tr>
             <% end %>
           </tbody>

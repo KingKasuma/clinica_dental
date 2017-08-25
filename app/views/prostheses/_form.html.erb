@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <% if current_user.employee.jefe? ||current_user.has_rol("ortondoncista") %>
+  <% if current_user.employee.jefe? || current_user.has_rol("ortondoncista") %>
     <div class="form-group">
       <div class="control-label col-md-2">
           <%= f.label :costo %><br>

@@ -88,62 +88,17 @@ class ReservationsController < ApplicationController
     end
   end
 
+
   def diary
-
-    @horas = [9.00,9.30,10.00,10.30,11.00,11.30,12.00,14.30,15.00,15.30,16.00,16.30,17.00,17.30,18.00,18.30,19.00,19.30,20.00]
-    @hora = Reservation.new
     @reservations = Reservation.where("employee_id = ?", current_user.employee.id).order("id DESC")
-
-    #Buscador de nombre y apellido
-    @patients = Patient.order("nombres DESC")
-    if params[:nombres].present?
-      @patient = @patients.where("nombres LIKE ?", "%#{params[:nombres]}%")
-      unless @patient.present?
-          flash.now[:danger] = "No existe paciente con ese nombre"
-      end
-      bandera_nombre = 1
-    end
-    if params[:apellido_paterno].present?
-      @patient = @patients.where("apellido_paterno LIKE ?","%#{params[:apellido_paterno]}%")
-      unless @patient.present?
-          flash.now[:danger] = "No existe paciente ese apellido"
-      end
-      bandera_apellido = 1
-    end
-    if params[:nombres].present? and params[:apellido_paterno].present?
-        flash.now[:success] = "Existe el paciente."
-        @bandera= bandera_nombre + bandera_apellido
-    end
-    #Buscador de nombre y apellido
-
-    #Buscador de fecha
-    if params[:fecha].present?
-      @fecha = params[:fecha]
-      @fecha = @fecha.to_date
-      if @doctor.reservations == []
-        flash.now[:danger] = "Doctor nunca ha tenido ninguna reserva"
-        @reserva = Reservation.new
-      else
-        @doctor.reservations.each do |reserva|
-          if reserva.fecha.to_s == params[:fecha]
-            #Doctor seleccionado con alguna reservacion con fecha
-            @reservas = @doctor.reservations.where("fecha = ?", @fecha)
-          end
-        end
-      end
-    end
-
-    if params[:fecha].present?
-      @fecha = params[:fecha]
-      @fecha = @fecha.to_date
-    if current_user.reservations == []
-      flash.now[:danger] = "Doctor nunca ha tenido reservas"
-    else
-
-    end
-    end
-    #Buscador de fecha
+    @reservations = @reservations.where("tipo LIKE ?", "Normal")
+    @reservations_today = @reservations.where(fecha:Date.today)
   end
+
+  def diary_special
+    @reservations_specials = Reservation.where("tipo LIKE ?", "Especial")
+  end
+
 
   def diary_secretary
     @horas = [9.00,9.30,10.00,10.30,11.00,11.30,12.00,14.30,15.00,15.30,16.00,16.30,17.00,17.30,18.00,18.30,19.00,19.30,20.00]

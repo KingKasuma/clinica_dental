@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row jumbotron">
+    <br>
+    <div class="col-md-12 well" >
+      <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#seccion1" aria-controls="seccion1" data-toggle="tab" role="tab">Ingresos</a></li>
+          <li role="presentation"><a href="#seccion2" aria-controls="seccion2" data-toggle="tab" role="tab">Tratamientos</a></li>
+          <li role="presentation"><a href="#seccion3" aria-controls="seccion3" data-toggle="tab" role="tab">Historiales Clinicos</a></li>
+        </ul>
+
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="seccion1">
+            <div class="container">
+                <br>
+                <%= render "ingresos" %>
+            </div>
+
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="seccion2">
+            <div class="container">
+              <br>
+              <%= render "tratamientos" %>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="seccion3">
+            <div class="container">
+              <br>
+              <%= render "historial_medico" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -11,7 +11,7 @@
               <%= text_field_tag :CI, params[:CI], class: "form-control", placeholder: "Carnet de Identidad" %>
           </div>
         </div>
-        <% unless current_user.has_rol("Doctor") %>
+        <% unless current_user.has_rol("Odontologo") %>
           <% if  @paciente.present?%>
             <div class="form-group">
               <div class="col-md-10 col-md-offset-1">
@@ -19,8 +19,8 @@
               </div>
             </div>
           <% end %>
-        <% end %>        
-        <% if current_user.has_rol("Doctor") %>
+        <% end %>
+        <% if current_user.has_rol("Odontologo") %>
           <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
         <% else %>
           <% if @paciente.present? %>
@@ -39,10 +39,18 @@
         <% if @paciente.present? %>
           <h2>Informacion</h2>
           <hr>
-          <h4><%= @paciente.full_name %></h4>
+          <h4><%= @paciente.full_name %></h4>          
           <h4><%= @paciente.telefono %></h4>
           <h4><%= @paciente.email %></h4>
-          <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+          <% if @account.present? %>
+            <% if @account.debts.last.saldo == 0 %>
+              <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+            <% else %>
+              <h4>Debe <%= @account.debts.last.saldo %>Bs en total</h4>
+            <% end %>
+          <% else %>
+            <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+          <% end %>
         <% else %>
           <h2>Informacion</h2>
           <hr>

@@ -8,7 +8,12 @@
           <h4><%= @paciente.full_name %></h4>
           <h4><%= @paciente.telefono %></h4>
           <h4><%= @paciente.email %></h4>
-          <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+          <% if @account.present? %>
+            <h4>Debe <%= @account.debts.last.saldo %>Bs en total</h4>
+          <% else %>
+            <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+          <% end %>
+
         <% else %>
           <h2>Informacion</h2>
           <hr>

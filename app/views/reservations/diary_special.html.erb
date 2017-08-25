@@ -4,7 +4,7 @@
           <h2>Informacion</h2>
           <h4>Pacientes con atencion</h4>
           <hr>
-            <% @reservations_today.each do |re| %>
+            <% @reservations_specials.each do |re| %>
               <% unless re.estado.downcase == "atendido" %>
                 <div class="col-md-7">
                   <%= l(re.fecha, format: :long) %><br>
@@ -29,7 +29,7 @@
       <h2>Informacion</h2>
       <h4>Pacientes Atendidos</h4>
       <hr>
-        <% @reservations.each do |re| %>
+        <% @reservations_specials.each do |re| %>
           <% if re.estado.downcase == "atendido" %>
           <div class="col-md-offset-1 col-md-10">
             <%= l(re.fecha, format: :long) %><br>

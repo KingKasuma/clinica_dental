@@ -21,7 +21,7 @@
                 <td><%= employee.apellido_paterno %></td>
                 <td><%= employee.apellido_materno %></td>
                 <td><%= employee.role.nombre %></td>
-                <% if current_user.has_rol("Doctor") && current_user.employee.jefe? %>
+                <% if current_user.has_rol("Odontologo") && current_user.employee.jefe? %>
                 <td><%= link_to 'Mostrar', employee, class: "btn btn-info" %></td>
                 <td><%= link_to 'Editar', edit_employee_path(employee), class: "btn btn-warning" %></td>
                 <% end %>

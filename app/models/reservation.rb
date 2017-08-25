@@ -1,6 +1,6 @@
 class Reservation < ActiveRecord::Base
   belongs_to :employee
-  belongs_to :patient  
+  belongs_to :patient
 
   def digital(hora)
     entero = hora.to_i
@@ -11,6 +11,15 @@ class Reservation < ActiveRecord::Base
       hora_total = entero.to_s + ":" +decimal.to_s
     end
     return hora_total
+  end
+
+  def today
+    resp = false
+    a = Date.today
+    if self.fecha == a
+      resp = true
+    end
+    resp 
   end
 
 end

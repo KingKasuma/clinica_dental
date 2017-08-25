@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 well" style="background-color:#c5d8de;">
+      <%= form_tag reports_path, method: :get, class: "form-horizontal" do%>
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <%= select_tag :sucursal, options_from_collection_for_select(Sucursal.all, "id", "direccion", params[:sucursal]), prompt: "Sucursal", class: "form-control" %>
+          </div>
+        </div>
+        <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+      <% end %>
+    </div>
+
+    <div class="col-sm-offset-1 col-sm-7 well" style="background-color:#c5d8de;">
+      <div class="row">
+        <% if @sucursal.present? %>
+          <h2>Informacion</h2>
+          <hr>
+          <h4><%= @sucursal.direccion %></h4>
+          <h4>Tiene un ingreso total de <%= @pagos %> Bs</h4>
+        <% else %>
+          <h2>Informacion</h2>
+          <hr>
+          <h4>Paciente no encontrado</h4>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

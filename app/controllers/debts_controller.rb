@@ -8,13 +8,22 @@ class DebtsController < ApplicationController
     @account = @paciente.account_books.last
   end
 
+
   def index
 
     if params[:CI].present?
       @paciente = Patient.find_by(CI: params[:CI])
+      if @paciente.nil?
+        flash.now[:danger] = "Paciente no encontrado"
+      else
+
       if @paciente.account_books.present?
         if @paciente.account_books.last.estado.downcase == "cancelado"
             @account = @paciente.account_books.last
+            flash.now[:success] = "Deudas canceladas al dia"
+        else
+          @account = @paciente.account_books.last
+          flash.now[:danger] = "Deudas pendientes"
         end
       end
 
@@ -24,16 +33,16 @@ class DebtsController < ApplicationController
           total = @paciente.tratamientos_costo + @paciente.protesis_costo
           @saldo = total - pago
           if @saldo == 0
-            @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id)
+            @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
             @account.save
-            @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id)
+            @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id, fecha: Date.today)
             if @debt.save
               flash.now[:success] = "Pago realizado"
             end
           else
-            @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id)
+            @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id,sucursal_id: current_user.employee.sucursal.id)
             @account.save
-            @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id)
+            @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id, fecha: Date.today)
             if @debt.save
               flash.now[:success] = "Pago realizado"
             end
@@ -47,16 +56,16 @@ class DebtsController < ApplicationController
               total_account = total - @paciente.accounts
               saldo = total_account - pago
               if saldo == 0
-                @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id)
+                @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
                 @account.save
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id)
+                @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id, fecha: Date.today)
                 if @debt.save
                   flash.now[:success] = "Pago realizado"
                 end
               else
-                @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id)
+                @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
                 @account.save
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id)
+                @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id, fecha: Date.today)
                 if @debt.save
                   flash.now[:success] = "Pago realizado"
                 end
@@ -67,13 +76,13 @@ class DebtsController < ApplicationController
               saldo = @account.debts.last.saldo
               saldo = saldo - pago
               if saldo == 0
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id)
+                @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id, fecha: Date.today)
                 if @debt.save
                   @account.update(estado: "Cancelado")
                   flash.now[:success] = "Pago realizado"
                 end
               else
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id)
+                @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id, fecha: Date.today)
                 if @debt.save
                   flash.now[:success] = "Pago realizado"
                 end
@@ -84,6 +93,7 @@ class DebtsController < ApplicationController
       end
     end
   end
+end
 
   # GET /debts/1
   # GET /debts/1.json
@@ -147,6 +157,6 @@ class DebtsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def debt_params
-      params.require(:debt).permit(:pago, :saldo, :total, :account_book_id)
+      params.require(:debt).permit(:pago, :saldo, :total, :account_book_id, :fecha)
     end
 end
