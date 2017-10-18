@@ -14,7 +14,23 @@ class ReportsController < ApplicationController
 
   end
 
+  if params[:fecha_inicio] && params[:fecha_fin]
+    fecha_fin = params[:fecha_fin]
+    fecha_inicio = params[:fecha_inicio]
+    @accounts = Debt.where('created_at BETWEEN ? AND ?',fecha_inicio,fecha_fin)
+  else
+    fecha_fin = params[:fecha_fin]
+    fecha_inicio = params[:fecha_inicio]
+    if params[:fecha_inicio].present?
+      @accounts = Debt.where('created_at = ?',fecha_inicio)
+    end
+    if params[:fecha_fin].present?
+      @accounts = Debt.where('created_at = ?',fecha_fin)
+    end
+  end
+
 #################Ingresos por sucursal###################
+
 
 #################Tratamientos por paciente################
   if params[:CI].present?
@@ -24,6 +40,7 @@ class ReportsController < ApplicationController
 #################Tratamientos por paciente################
 
 
+################Historiales Clinicos######################
     if params[:fecha_inicio] && params[:fecha_fin]
       fecha_fin = params[:fecha_fin]
       fecha_inicio = params[:fecha_inicio]
@@ -38,5 +55,11 @@ class ReportsController < ApplicationController
         @accounts = Debt.where('created_at = ?',fecha_fin)
       end
     end
+################Historiales Clinicos######################
+
+###############Deudas########################
+@pacientes = Patient.all
+###############Deudas########################
+
   end
 end

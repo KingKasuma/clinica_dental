@@ -1,5 +1,5 @@
 class DentalExamination < ActiveRecord::Base
-  has_many :treatments
+  has_many :treatments, dependent: :destroy
 
   def posicion?
     if self.posicion.downcase == "superior derecha"

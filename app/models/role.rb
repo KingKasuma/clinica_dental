@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base
-  has_one :employee
-  has_one :patient
+  has_one :employee, dependent: :destroy
+  has_one :patient, dependent: :destroy
 
   #############Validaciones############
   validates :nombre, presence: true
