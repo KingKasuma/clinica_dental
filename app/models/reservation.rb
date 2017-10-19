@@ -19,7 +19,7 @@ class Reservation < ActiveRecord::Base
     if self.fecha == a
       resp = true
     end
-    resp 
-  end
+    resp
+  end  
 
 end

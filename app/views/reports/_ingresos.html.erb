@@ -7,6 +7,19 @@
             <%= select_tag :sucursal, options_from_collection_for_select(Sucursal.all, "id", "direccion", params[:sucursal]), prompt: "Sucursal", class: "form-control" %>
           </div>
         </div>
+
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <%= text_field_tag :fecha_inicio_sucursal, params[:fecha_inicio_sucursal], class: "form-control datepicker", placeholder: "Fecha Inicio" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-10">
+            <%= text_field_tag :fecha_fin_sucursal, params[:fecha_fin_sucursal], class: "form-control datepicker", placeholder: "Fecha Fin" %>
+          </div>
+        </div>
+
         <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
       <% end %>
     </div>

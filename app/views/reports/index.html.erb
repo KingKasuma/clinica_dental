@@ -6,7 +6,9 @@
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#seccion1" aria-controls="seccion1" data-toggle="tab" role="tab">Ingresos</a></li>
           <li role="presentation"><a href="#seccion2" aria-controls="seccion2" data-toggle="tab" role="tab">Tratamientos</a></li>
-          <li role="presentation"><a href="#seccion3" aria-controls="seccion3" data-toggle="tab" role="tab">Deudas</a></li>
+          <li role="presentation"><a href="#seccion3" aria-controls="seccion3" data-toggle="tab" role="tab">Protesis</a></li>
+          <li role="presentation"><a href="#seccion4" aria-controls="seccion4" data-toggle="tab" role="tab">Deudas</a></li>
+          <li role="presentation"><a href="#seccion5" aria-controls="seccion5" data-toggle="tab" role="tab">Pacientes del dia</a></li>
         </ul>
 
 
@@ -26,12 +28,27 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="tab-pane" id="seccion3">
+          <div role="tabpanel" class="tab-pane" id="seccion4">
             <div class="container">
               <br>
               <%= render "deudas" %>
             </div>
           </div>
+
+          <div role="tabpanel" class="tab-pane" id="seccion3">
+            <div class="container">
+              <br>
+              <%= render "protesis" %>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="seccion5">
+            <div class="container">
+              <br>
+              <%= render "pacientes" %>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

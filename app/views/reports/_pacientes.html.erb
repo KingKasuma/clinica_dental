@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="col-md-10 col-md-offset-1 well" style="background-color:#c5d8de;">
+          <h2>Informacion</h2>
+          <h4>Pacientes con atencion para el dia</h4>
+          <hr>
+            <% @reservations_today.each do |re| %>
+                <div class="col-md-10 col-md-offset-1">
+                  <%= l(re.fecha, format: :long) %><br>
+                  <%= l(re.hora, format: :very_short) %><br>
+                  <% unless re.patient.medical_history.nil? %>
+                    <p class="link"><strong><%= link_to re.patient.full_name, medical_history_path(re.patient.medical_history.id), class: "link" %></strong></p>
+                  <% else %>
+                    <p class="link"><strong><%= re.patient.full_name %></strong></p>
+                  <% end %>
+
+                  <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>
+                  <hr>
+                </div>
+            <% end %>
+    </div>
+</div>

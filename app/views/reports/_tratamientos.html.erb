@@ -1,78 +1,98 @@
 <div class="row">
-
-</div>
-<div class="col-sm-3 well" style="background-color:#c5d8de;">
-  <%= form_tag reports_path, method: :get, class: "form-horizontal" do%>
-  <div class="form-group">
-    <div class="col-md-offset-1 col-md-10">
-      <%= text_field_tag :CI, params[:CI], class: "form-control", placeholder:"CI del paciente" %>
+  <div class="col-sm-3 well" style="background-color:#c5d8de;">
+    <%= form_tag reports_path, method: :get, class: "form-horizontal" do%>
+    <div class="form-group">
+      <div class="col-md-offset-1 col-md-10">
+        <%= text_field_tag :CI, params[:CI], class: "form-control", placeholder:"CI del paciente" %>
+      </div>
     </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-1 col-md-10">
+          <%= text_field_tag :fecha_inicio, params[:fecha_inicio], class: "form-control datepicker", placeholder: "Fecha Inicio" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-1 col-md-10">
+          <%= text_field_tag :fecha_fin, params[:fecha_fin], class: "form-control datepicker", placeholder: "Fecha Fin" %>
+        </div>
+      </div>
+      <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+    <% end %>
   </div>
-    <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
-  <% end %>
-</div>
 
-<div class="col-sm-offset-1 col-sm-8 well" style="background-color:#c5d8de;">
-  <div class="table-responsive">
-      <h1>Lista de tratamientos</h1>
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th>Examen Dental:</th>
-            <th>Diagnostico Presuntivo:</th>
-            <th>Diagnostico Definitivo:</th>
-            <th>Rayos X:</th>
-            <th>Tratamiento:</th>
-            <% if current_user.employee.jefe? %>
-              <th>Costo:</th>
-            <% end %>
-            <th colspan="2">Protesis:</th>
-            <th colspan="2">Opciones:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if @medical_history.present? %>
-        <% @medical_history.treatments.each do |tratamiento| %>
-          <tr <% if tratamiento.costo.nil?  && current_user.employee.jefe? %>
-            style="background-color:#e85c5c;"
-          <% end %> >
-            <td><%= tratamiento.dental_examination.posicion? %> <%= tratamiento.dental_examination.numero_diente %></td>
-            <td><%= tratamiento.diagnostico_presuntivo %></td>
-            <td><%= tratamiento.diagnostico_definitivo %></td>
-            <% if tratamiento.rayos_x == true %>
-              <td>Si</td>
-            <% else %>
-              <td>No</td>
-            <% end %>
-            <td><%= tratamiento.nombre %></td>
-            <% if current_user.employee.jefe? %>
-              <td><%= tratamiento.costo %></td>
-            <% end %>
-            <% if tratamiento.prosthesis == [] %>
-              <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
-              <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning disabled" %></td>
-            <% else %>
-              <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
-                <% tratamiento.prosthesis.each do |protesis| %>
-                  <% if current_user.has_rol("ortondoncista") &&  protesis.costo.nil?%>
-                    <td><%= link_to "Verificar", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
-                  <% end %>
+  <div class="col-sm-offset-1 col-sm-8 well" style="background-color:#c5d8de;">
+    <div class="table-responsive">
+      <% if @paciente.present? %>
+        <h2>Tratamientos de <%= @paciente.full_name %></h2>
+      <% else %>
+        <h2>Tratamientos</h2>
+      <% end %>
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Fecha:</th>
+              <th>Examen Dental:</th>
+              <th>Diagnostico Presuntivo:</th>
+              <th>Diagnostico Definitivo:</th>
+              <th>Rayos X:</th>
+              <th>Tratamiento:</th>
+              <% if current_user.employee.jefe? || current_user.employee.normal? %>
+                <th>Costo:</th>
+                <th colspan="2">Protesis:</th>
+                <th colspan="2">Opciones:</th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @tratamientos.present? %>
+          <% @tratamientos.each do |tratamiento| %>
+            <tr <% if tratamiento.costo.nil?  && current_user.employee.jefe? %>
+              style="background-color:#e85c5c;"
+            <% end %> >
+              <td><%= tratamiento.fecha %></td>
+              <td><%= tratamiento.dental_examination.posicion? %> <%= tratamiento.dental_examination.numero_diente %></td>
+              <td><%= tratamiento.diagnostico_presuntivo %></td>
+              <td><%= tratamiento.diagnostico_definitivo %></td>
+              <% if tratamiento.rayos_x == true %>
+                <td>Si</td>
+              <% else %>
+                <td>No</td>
+              <% end %>
+              <td><%= tratamiento.nombre %></td>
+              <% if current_user.employee.jefe? %>
+                <td><%= tratamiento.costo %></td>
+              <% end %>
+              <% if current_user.employee.jefe? || current_user.employee.normal? %>
+                <% if tratamiento.prosthesis == [] %>
+                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
+                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning disabled" %></td>
+                <% else %>
+                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
+                    <% tratamiento.prosthesis.each do |protesis| %>
+                      <% if current_user.has_rol("ortondoncista") &&  protesis.costo.nil?%>
+                        <td><%= link_to "Verificar", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
+                      <% end %>
+                    <% end %>
+                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
                 <% end %>
-              <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
-            <% end %>
-            <% if tratamiento.costo.nil? && current_user.employee.jefe?%>
-              <td><%= link_to "Verificar", edit_treatment_path(tratamiento), class: "btn btn-warning" %></td>
-            <% else %>
-              <td><%= link_to "Detalles", treatment_path(tratamiento), class: "btn btn-info" %></td>
-            <% end %>
 
-            <% if current_user.employee.jefe? %>
-              <td><%= link_to "Eliminar", treatment_path(tratamiento), method: :delete, data: { confirm: 'Estas seguro de eliminar?' }, class: "btn btn-danger" %></td>
+                <% if tratamiento.costo.nil? && current_user.employee.jefe?%>
+                  <td><%= link_to "Verificar", edit_treatment_path(tratamiento), class: "btn btn-warning" %></td>
+                <% else %>
+                  <td><%= link_to "Detalles", treatment_path(tratamiento), class: "btn btn-info" %></td>
+                <% end %>
+
+                <% if current_user.employee.jefe? %>
+                  <td><%= link_to "Eliminar", treatment_path(tratamiento), method: :delete, data: { confirm: 'Estas seguro de eliminar?' }, class: "btn btn-danger" %></td>
+                <% end %>
+              <% end %>
+            </tr>
             <% end %>
-          </tr>
-          <% end %>
-          <% end %>
-        </tbody>
-      </table>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
   </div>
 </div>

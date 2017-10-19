@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-sm-3 well" style="background-color:#c5d8de;">
+    <%= form_tag reports_path, method: :get, class: "form-horizontal" do%>
+    <div class="form-group">
+      <div class="col-md-offset-1 col-md-10">
+        <%= text_field_tag :CI, params[:CI], class: "form-control", placeholder:"CI del paciente" %>
+      </div>
+    </div>
+      <%= submit_tag "Buscar", name: nil, class: "btn btn-primary btn-md" %>
+    <% end %>
+  </div>
+
+  <div class="col-sm-offset-1 col-sm-8 well" style="background-color:#c5d8de;">
+    <div class="table-responsive">
+        <% if @paciente.present? %>
+          <h2>Protesis de <%= @paciente.full_name %></h2>
+        <% else %>
+          <h2>Lista de protesis</h2>
+        <% end %>
+
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>nombre:</th>
+              <th>Protesis:</th>
+              <th>Fecha Pedido:</th>
+              <th>Fecha Entrega:</th>
+              <% if current_user.employee.jefe? %>
+                <th>Costo:</th>
+              <% end %>
+              <th>Estado:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @protesis.present? %>
+          <% @protesis.each do |protesis| %>
+            <tr <% if protesis.costo.nil?  && current_user.employee.jefe? %>
+              style="background-color:#e85c5c;"
+            <% end %> >
+              <td><%= protesis.nombre %></td>
+              <td><%= protesis.protesis %></td>
+              <td><%= protesis.fecha_pedido %></td>
+              <td><%= protesis.fecha_entrega %></td>
+              <% if current_user.employee.jefe? %>
+                <td><%= protesis.costo %></td>
+              <% end %>
+                <td><%= protesis.estado %></td>
+
+            </tr>
+            <% end %>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

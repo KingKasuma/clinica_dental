@@ -2,21 +2,33 @@
   <div class="col-sm-offset- col-sm-5 well" style="background-color:#c5d8de;">
     <h2>Pacientes con Deudas</h2>
     <hr>
-    <% @pacientes.each do |paciente| %>
-    <% if paciente.account_books.last.estado == "Deuda" %>
-      <h4><%= paciente.full_name %></h4>
-      <hr>
-    <% end %>
-    <% end %>
+
+      <% @pacientes.each do |paciente| %>
+        <% unless paciente.account_books == [] %>
+          <% if paciente.account_books.last.estado == "Deuda" %>
+            <h4><%= paciente.full_name %></h4>
+            <h4>Saldo pendiente: <%= paciente.account_books.last.debts.last.saldo %></h4>
+            <hr>
+          <% end %>
+        <% end %>
+      <% end %>
+
+
   </div>
   <div class="col-sm-offset-2 col-sm-5 well" style="background-color:#c5d8de;">
     <h2>Pacientes sin Deudas</h2>
     <hr>
-      <% @pacientes.each do |paciente| %>
-      <% if paciente.account_books.last.estado == "Cancelado" %>
-        <h4><%= paciente.full_name %></h4>
-        <hr>
-      <% end %>
-      <% end %>
+
+        <% @pacientes.each do |paciente| %>
+          <% unless paciente.account_books == [] %>
+            <% if paciente.account_books.last.estado == "Cancelado" %>
+              <h4><%= paciente.full_name %></h4>
+              <h4>Saldo pendiente: <%= paciente.account_books.last.debts.last.saldo %></h4>
+              <hr>
+            <% end %>
+          <% end %>
+        <% end %>
+
+
   </div>
 </div>

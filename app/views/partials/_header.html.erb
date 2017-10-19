@@ -50,11 +50,9 @@
         <% else %>
           <!--Odontologo-->
           <% if current_user.has_rol("Odontologo") %>
-            <% current_user.employee.reservations.each do |reservation| %>
-              <% if reservation.tipo.downcase == "especial" %>
+              <% if current_user.employee.reservaciones_empleado > 0 &&  current_user.employee.reservaciones_empleado_sin_atender > 0%>
                 <li class="iconos"><a href="diary_special"><i class="fa fa-bell fa-2x" aria-hidden="true"></i> Consulta especial </a></li>
               <% end %>
-            <% end %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
@@ -74,7 +72,7 @@
             <!--Odontologo-->
           <% end %>
 
-          <!--Ortodoncista-->
+          <!--Protesista-->
           <% if current_user.has_rol("Protesista") %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
@@ -84,7 +82,7 @@
               </ul>
             </li>
           <% end %>
-          <!--Ortodoncista-->
+          <!--Protesista-->
 
 
           <!--Secretaria-->

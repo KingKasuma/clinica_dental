@@ -90,9 +90,9 @@ class ReservationsController < ApplicationController
 
 
   def diary
-    @reservations = Reservation.where("employee_id = ?", current_user.employee.id).order("id DESC")
+    @reservations = Reservation.where("employee_id = ?", current_user.employee.id)
     @reservations = @reservations.where("tipo LIKE ?", "Normal")
-    @reservations_today = @reservations.where(fecha:Date.today)
+    @reservations_today = @reservations.where(fecha:Date.today).order("hora ASC")
   end
 
   def diary_special
@@ -133,6 +133,7 @@ class ReservationsController < ApplicationController
         end
       end
     end
+
   end
 
   def reservacion

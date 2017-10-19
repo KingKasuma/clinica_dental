@@ -86,6 +86,8 @@
     <%= f.hidden_field :medical_history_id, value: @medical_history.id  %>
   <% end %>
 
+  <%= f.hidden_field :fecha, value: Date.today %>
+
 
   <div class="actions">
     <%= f.submit "Guardar", class: "btn btn-primary" %>

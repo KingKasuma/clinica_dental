@@ -15,7 +15,7 @@ class Employee < ActiveRecord::Base
   validates :nacionalidad, presence: true
   validates :profesion, presence: true
   validates :especialidad, presence: true
-  validates :fecha_alta, presence: true  
+  validates :fecha_alta, presence: true
   validates :CI, presence: true, length: {minimum: 6}, uniqueness: true
   validates :email, presence: true
   #########Validaciones##########
@@ -31,8 +31,53 @@ class Employee < ActiveRecord::Base
     resp
   end
 
+  def protesista?
+    resp = false
+    if self.role.nombre.downcase == "protesista"
+      resp = true
+    end
+    resp
+  end
+
+  def normal?
+    resp = false
+    if self.cargo.downcase == "normal"
+      resp = true
+    end
+    resp
+  end
+
+  def secretaria?
+    resp = false
+    if self.role.nombre.downcase == "secretaria"
+      resp = true
+    end
+    resp
+  end
+
   def full_name
     "#{nombre} #{apellido_paterno} #{apellido_materno}"
+  end
+
+  def reservaciones_empleado
+    cont = 0
+    self.reservations.each do |reservation|
+       if reservation.tipo.downcase == "especial"
+         cont = cont + 1
+       end
+    end
+    return cont
+  end
+
+  def reservaciones_empleado_sin_atender
+    cont = 0
+    reservas_especiales = self.reservations.where(tipo:"Especial")
+    reservas_especiales.each do |especial|
+      if especial.estado.downcase == "reservado"
+        cont = cont + 1
+      end
+    end
+    return cont
   end
 
 end
