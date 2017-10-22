@@ -9,15 +9,18 @@
                 <div class="col-md-7">
                   <%= l(re.fecha, format: :long) %><br>
                   <%= l(re.hora, format: :very_short) %><br>
-                  <p class="link"><strong><%= link_to re.patient.full_name, medical_history_path(re.patient.medical_history.id), class: "link" %></strong></p>
+                  <% unless re.patient.medical_history.nil? %>
+                    <p class="link"><strong><%= link_to re.patient.full_name, medical_history_path(re.patient.medical_history.id), class: "link" %></strong></p>
+                  <% else %>
+                    <p class="link"><strong><%=link_to re.patient.full_name, {:controller => "medical_histories", :action => "new", :id => re.patient.id} %></strong></p>
+                  <% end %>
                   <h6>Reservado hace <%= distance_of_time_in_words_to_now(re.created_at)%> atras</h6>
                   <hr>
                 </div>
                 <div class="col-md-5">
                     <h4>Opciones</h4>
                     <div class="container">
-                      <%= link_to 'Atendido', {:controller => "reservations", :action => "atendido", :id => re.id}, class: "btn btn-warning" %>
-
+                      <%= link_to 'Atendido', {:controller => "reservations", :action => "atendido_consulta_especial", :id => re.id}, class: "btn btn-warning" %>
                     </div>
                     <hr>
                 </div>

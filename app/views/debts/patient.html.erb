@@ -11,7 +11,9 @@
           <% if @account.present? %>
             <h4>Debe <%= @account.debts.last.saldo %>Bs en total</h4>
           <% else %>
-            <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+            <% unless @paciente.medical_history.nil? %>
+              <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+            <% end %>
           <% end %>
 
         <% else %>

@@ -34,14 +34,10 @@
         <li class="dropdown iconos">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
-            <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>
-            <li role="separator" class="divider"></li>
             <li><a href="/sucursals"><i class="fa fa-hospital-o fa-2x"></i> Sucursal </a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/reports"><i class="fa fa-pie-chart fa-2x"></i> Reportes </a></li>
+            <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
+            <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/perfil"><i class="fa fa-user fa-2x"></i> Perfil de usuario </a></li>
           </ul>
@@ -51,14 +47,13 @@
           <!--Odontologo-->
           <% if current_user.has_rol("Odontologo") %>
               <% if current_user.employee.reservaciones_empleado > 0 &&  current_user.employee.reservaciones_empleado_sin_atender > 0%>
-                <li class="iconos"><a href="diary_special"><i class="fa fa-bell fa-2x" aria-hidden="true"></i> Consulta especial </a></li>
+                <li><%= link_to "Consulta Especial" , diary_special_path, class: "fa fa-bell" %></li>
               <% end %>
             <li class="dropdown iconos">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user-circle fa-2x"></i></a>
               <ul class="dropdown-menu" role="menu">
                 <% if current_user.employee.jefe? %>
                   <li><a href="/employees"><i class="fa fa-user-md fa-2x"></i> Empleados</a></li>
-                  <li><a href="/roles"><i class="fa fa-flag fa-2x"></i> Roles</a></li>
                 <% end %>
                 <li role="separator" class="divider"></li>
                 <li><a href="/patients"><i class="fa fa-users fa-2x"></i> Pacientes</a></li>

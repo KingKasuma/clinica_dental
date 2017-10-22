@@ -32,8 +32,9 @@ class TreatmentsController < ApplicationController
         format.html { redirect_to medical_history_path(@treatment.medical_history), notice: 'Tratamiento creado.' }
         format.json { render :show, status: :created, location: @treatment }
       else
-        format.html { render :new }
+        format.html { redirect_to :controller => "treatments", :action => "new", :id => @treatment.medical_history.id }
         format.json { render json: @treatment.errors, status: :unprocessable_entity }
+        flash[:danger] = "Tratamiento no creado. Llenar todos los campos del formulario."
       end
     end
   end

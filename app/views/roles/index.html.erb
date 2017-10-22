@@ -19,9 +19,9 @@
                 <td><%= role.nombre %></td>
                 <td><%= role.descripcion %></td>
                 <td><%= link_to 'Mostrar', role , class: "btn btn-primary"%></td>
-                <% if current_user.employee.nil? && current_user.patient.nil? %>
-                <td><%= link_to 'Editar', edit_role_path(role) , class: "btn btn-warning"%></td>
-                <td><%= link_to 'Eliminar', role, method: :delete, data: { confirm: 'Estas Seguro?' }, class: "btn btn-danger" %></td>
+                <% unless current_user.employee.nil? && current_user.patient.nil? %>
+                  <td><%= link_to 'Editar', edit_role_path(role) , class: "btn btn-warning"%></td>
+                  <td><%= link_to 'Eliminar', role, method: :delete, data: { confirm: 'Estas Seguro?' }, class: "btn btn-danger" %></td>
                 <% end %>
               </tr>
             <% end %>

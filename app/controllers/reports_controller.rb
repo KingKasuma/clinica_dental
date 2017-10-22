@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
           end
         end
       end
-    end
+  end
 
 
 #################Ingresos por sucursal###################
@@ -28,31 +28,41 @@ class ReportsController < ApplicationController
 #################Tratamientos por paciente################
   if params[:CI].present?
     @paciente = Patient.find_by(CI: params[:CI])
-    @medical_history = @paciente.medical_history
-    @tratamientos = @medical_history.treatments
-    @protesis = @medical_history.prosthesis
-    if params[:fecha_inicio].present? && params[:fecha_fin].present?
-      @fecha_fin = params[:fecha_fin]
-      @fecha_fin = @fecha_fin.to_date
-      @fecha_inicio = params[:fecha_inicio]
-      @fecha_inicio = @fecha_inicio.to_date
-      if @medical_history.treatments == []
-        flash.now[:danger] = "Paciente no tiene ningun tratamiento"
+    if @paciente.nil?
+      flash.now[:danger] = "Paciente no encontrado"
+    else
+      if @paciente.medical_history.nil?
+        flash.now[:danger] = "Paciente sin historial medico"
       else
-        @medical_history.treatments.each do |tratamiento|
-            @tratamientos = @medical_history.treatments.where('fecha BETWEEN ? AND ?',@fecha_inicio,@fecha_fin)
+        @medical_history = @paciente.medical_history
+        @tratamientos = @medical_history.treatments
+        @protesis = @medical_history.prosthesis
+        if params[:fecha_inicio].present? && params[:fecha_fin].present?
+          @fecha_fin = params[:fecha_fin]
+          @fecha_fin = @fecha_fin.to_date
+          @fecha_inicio = params[:fecha_inicio]
+          @fecha_inicio = @fecha_inicio.to_date
+          if @medical_history.treatments == []
+            flash.now[:danger] = "Paciente no tiene ningun tratamiento"
+          else
+            @medical_history.treatments.each do |tratamiento|
+                @tratamientos = @medical_history.treatments.where('fecha BETWEEN ? AND ?',@fecha_inicio,@fecha_fin)
+            end
+          end
+        else
+          if params[:fecha_inicio].present?
+            @fecha_inicio = params[:fecha_inicio].to_date
+            @tratamientos = @medical_history.treatments.where('fecha = ?',@fecha_inicio)
+          end
+          if params[:fecha_fin].present?
+            @fecha_fin = params[:fecha_fin].to_date
+            @tratamientos = @medical_history.treatments.where('fecha = ?',@fecha_fin)
+          end
         end
       end
-    else
-      if params[:fecha_inicio].present?
-        @fecha_inicio = params[:fecha_inicio].to_date
-        @tratamientos = @medical_history.treatments.where('fecha = ?',@fecha_inicio)
-      end
-      if params[:fecha_fin].present?
-        @fecha_fin = params[:fecha_fin].to_date
-        @tratamientos = @medical_history.treatments.where('fecha = ?',@fecha_fin)
-      end
+
     end
+
   end
 #################Tratamientos por paciente################
 

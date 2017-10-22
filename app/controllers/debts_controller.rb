@@ -91,8 +91,8 @@ class DebtsController < ApplicationController
           end
         end
       end
+      end
     end
-  end
 
   respond_to do |format|
     format.html
@@ -100,7 +100,7 @@ class DebtsController < ApplicationController
     format.pdf { render template: 'debts/pagos', pdf: 'Pagos', layout: 'pdf.html'}
   end
 
-end
+  end
 
   # GET /debts/1
   # GET /debts/1.json

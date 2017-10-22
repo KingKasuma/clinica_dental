@@ -25,24 +25,25 @@
                 <% end %>
               <% end %>
             <% end %>
-
-            <hr>
-            <%= form_tag debts_path, method: :get, class: "form-horizontal" do %>
-            <div class="form-group">
-              <div class="col-md-10 col-md-offset-1">
-                  <%= text_field_tag :CI, params[:CI], class: "form-control hidden", placeholder: "Carnet de Identidad" %>
+            <% unless @paciente.medical_history.nil? %>
+              <hr>
+              <%= form_tag debts_path, method: :get, class: "form-horizontal" do %>
+              <div class="form-group">
+                <div class="col-md-10 col-md-offset-1">
+                    <%= text_field_tag :CI, params[:CI], class: "form-control hidden", placeholder: "Carnet de Identidad" %>
+                </div>
               </div>
-            </div>
-              <% unless current_user.has_rol("Odontologo") %>
-                <% if  @paciente.present?%>
-                  <div class="form-group">
-                    <div class="col-md-10 col-md-offset-1">
-                        <%= text_field_tag :pago, params[:pago], class: "form-control", placeholder: "Cantidad a pagar" %>
+                <% unless current_user.has_rol("Odontologo") %>
+                  <% if  @paciente.present?%>
+                    <div class="form-group">
+                      <div class="col-md-10 col-md-offset-1">
+                          <%= text_field_tag :pago, params[:pago], class: "form-control", placeholder: "Cantidad a pagar" %>
+                      </div>
                     </div>
-                  </div>
+                  <% end %>
                 <% end %>
+                <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
               <% end %>
-              <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
             <% end %>
           <% else %>
           <%= form_tag debts_path, method: :get, class: "form-horizontal" do%>
@@ -105,7 +106,11 @@
               <h4>Debe <%= @account.debts.last.saldo %>Bs en total</h4>
             <% end %>
           <% else %>
-            <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+            <% unless @paciente.medical_history.nil? %>
+              <h4>Debe <%= @paciente.total_nuevo %>Bs en total</h4>
+            <% else %>
+              <h4>Paciente no tiene historial medico</h4>
+            <% end %>
           <% end %>
         <% else %>
           <h2>Informacion</h2>

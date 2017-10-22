@@ -226,6 +226,14 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def atendido_consulta_especial
+    @reservation = Reservation.find(params[:id])
+    if @reservation.update(estado:"Atendido")
+      flash[:success] = "Paciente atendido"
+      redirect_to diary_special_path
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation

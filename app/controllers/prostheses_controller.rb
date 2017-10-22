@@ -34,8 +34,9 @@ class ProsthesesController < ApplicationController
         format.html { redirect_to medical_history_path(@prosthesis.medical_history), notice: 'Prostesis creado exitosamente.' }
         format.json { render :show, status: :created, location: @prosthesis }
       else
-        format.html { render :new }
+        format.html { redirect_to :controller => "prostheses", :action => "new", :id => @prosthesis.treatment.id }
         format.json { render json: @prosthesis.errors, status: :unprocessable_entity }
+        flash[:danger] = "Protesis no creada. Llenar todos los campos del formulario."        
       end
     end
   end

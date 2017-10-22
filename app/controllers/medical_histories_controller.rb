@@ -72,6 +72,6 @@ class MedicalHistoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def medical_history_params
       params.require(:medical_history).permit(:tratamiento_medico, :medicamentos_actuales, :enfermo_corazon, :desmayos_frecuencia, :intervenido_quirurgicamente, :complicaciones_hemorragias, :observaciones, :patient_id,
-              treatments_attributes:[:id,:nombre,:tratamiento,:costo,:diagnostico_presuntivo,:diagnostico_definitivo,:rayos_x, :employee_id, :medical_history_id ,:dental_examination_id, :_destroy])
+              treatments_attributes:[:id,:nombre,:tratamiento,:costo,:diagnostico_presuntivo,:diagnostico_definitivo,:rayos_x, :employee_id, :medical_history_id ,:dental_examination_id, :fecha ,:_destroy])
     end
 end
