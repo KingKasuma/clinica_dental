@@ -8,6 +8,7 @@ class Treatment < ActiveRecord::Base
   validates :nombre, presence: true
   validates :tratamiento, presence: true
   validates :diagnostico_presuntivo, presence: true
-  validates :diagnostico_definitivo, presence: true  
+  validates :diagnostico_definitivo, presence: true
+  validates :dental_examination_id, presence: true
   #######Validaciones#######
 end

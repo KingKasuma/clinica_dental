@@ -83,8 +83,11 @@ class ReservationsController < ApplicationController
   def destroy
     @reservation.destroy
     respond_to do |format|
-      format.html { redirect_to reservations_url, notice: 'Reservacion anterior eliminada, porfavor elija una nueva fecha.' }
-      format.json { head :no_content }
+      if current_user.has_rol("secretaria")
+        format.html { redirect_to diary_secretary_path, notice: 'Reservacion anterior eliminada, porfavor elija una nueva fecha.' }
+      else
+        format.html { redirect_to reservations_url, notice: 'Reservacion anterior eliminada, porfavor elija una nueva fecha.' }
+      end
     end
   end
 

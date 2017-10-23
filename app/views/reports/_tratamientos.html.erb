@@ -38,11 +38,14 @@
               <th>Diagnostico Definitivo:</th>
               <th>Rayos X:</th>
               <th>Tratamiento:</th>
-              <% if current_user.employee.jefe? || current_user.employee.normal? %>
-                <th>Costo:</th>
-                <th colspan="2">Protesis:</th>
-                <th colspan="2">Opciones:</th>
+              <% unless current_user.employee.nil?  && current_user.patient.nil?%>
+                <% if current_user.employee.jefe? || current_user.employee.normal? %>
+                  <th>Costo:</th>
+                  <th colspan="2">Protesis:</th>
+                  <th colspan="2">Opciones:</th>
+                <% end %>
               <% end %>
+
             </tr>
           </thead>
           <tbody>
@@ -61,32 +64,36 @@
                 <td>No</td>
               <% end %>
               <td><%= tratamiento.nombre %></td>
-              <% if current_user.employee.jefe? %>
-                <td><%= tratamiento.costo %></td>
-              <% end %>
-              <% if current_user.employee.jefe? || current_user.employee.normal? %>
-                <% if tratamiento.prosthesis == [] %>
-                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
-                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning disabled" %></td>
-                <% else %>
-                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
-                    <% tratamiento.prosthesis.each do |protesis| %>
-                      <% if current_user.has_rol("ortondoncista") &&  protesis.costo.nil?%>
-                        <td><%= link_to "Verificar", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
-                      <% end %>
-                    <% end %>
-                  <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
-                <% end %>
-
-                <% if tratamiento.costo.nil? && current_user.employee.jefe?%>
-                  <td><%= link_to "Verificar", edit_treatment_path(tratamiento), class: "btn btn-warning" %></td>
-                <% else %>
-                  <td><%= link_to "Detalles", treatment_path(tratamiento), class: "btn btn-info" %></td>
-                <% end %>
-
+              <% unless current_user.employee.nil?  && current_user.patient.nil?%>
                 <% if current_user.employee.jefe? %>
-                  <td><%= link_to "Eliminar", treatment_path(tratamiento), method: :delete, data: { confirm: 'Estas seguro de eliminar?' }, class: "btn btn-danger" %></td>
+                  <td><%= tratamiento.costo %></td>
                 <% end %>
+              <% end %>
+              <% unless current_user.employee.nil?  && current_user.patient.nil?%>
+                  <% if current_user.employee.jefe? || current_user.employee.normal? %>
+                    <% if tratamiento.prosthesis == [] %>
+                      <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
+                      <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning disabled" %></td>
+                    <% else %>
+                      <td><%= link_to "Protesis", {:controller => "prostheses", :action => "new", :id => tratamiento.id}, class: "btn btn-success" %></td>
+                        <% tratamiento.prosthesis.each do |protesis| %>
+                          <% if current_user.has_rol("ortondoncista") &&  protesis.costo.nil?%>
+                            <td><%= link_to "Verificar", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
+                          <% end %>
+                        <% end %>
+                      <td><%= link_to "Protesis", {:controller => "prostheses", :action => "index", :id => tratamiento.id }, class: "btn btn-warning" %></td>
+                    <% end %>
+
+                    <% if tratamiento.costo.nil? && current_user.employee.jefe?%>
+                      <td><%= link_to "Verificar", edit_treatment_path(tratamiento), class: "btn btn-warning" %></td>
+                    <% else %>
+                      <td><%= link_to "Detalles", treatment_path(tratamiento), class: "btn btn-info" %></td>
+                    <% end %>
+
+                    <% if current_user.employee.jefe? %>
+                      <td><%= link_to "Eliminar", treatment_path(tratamiento), method: :delete, data: { confirm: 'Estas seguro de eliminar?' }, class: "btn btn-danger" %></td>
+                    <% end %>
+                  <% end %>
               <% end %>
             </tr>
             <% end %>

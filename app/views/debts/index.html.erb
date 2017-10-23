@@ -34,15 +34,26 @@
                 </div>
               </div>
                 <% unless current_user.has_rol("Odontologo") %>
-                  <% if  @paciente.present?%>
+                  <% if  @paciente.present? %>
+                    <% if @account.present? && @account.debts.last != 0 && @total_nuevo != 0 || @paciente.total_nuevo > 0%>
+                      <div class="form-group">
+                        <div class="col-md-10 col-md-offset-1">
+                            <%= text_field_tag :pago, params[:pago], class: "form-control", placeholder: "Cantidad a pagar" %>
+                        </div>
+                      </div>
+                      <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
+                    <% end %>
+                    <% if @account.present? &&  @account.debts.last.saldo %>
                     <div class="form-group">
                       <div class="col-md-10 col-md-offset-1">
                           <%= text_field_tag :pago, params[:pago], class: "form-control", placeholder: "Cantidad a pagar" %>
                       </div>
                     </div>
+                    <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
+                    <% end %>
                   <% end %>
                 <% end %>
-                <%= submit_tag "Pagar", name: nil, class: "btn btn-primary btn-md" %>
+
               <% end %>
             <% end %>
           <% else %>
@@ -101,9 +112,9 @@
           <h4><%= @paciente.email %></h4>
           <% if @account.present? %>
             <% if @account.debts.last.saldo == 0 %>
-              <h4>Debe 0 Bs en total</h4>
+              <h4>Debe <%= @total_nuevo %></h4>
             <% else %>
-              <h4>Debe <%= @account.debts.last.saldo %>Bs en total</h4>
+              <h4>Debe ser <%= @account.debts.last.saldo %>Bs en total</h4>
             <% end %>
           <% else %>
             <% unless @paciente.medical_history.nil? %>

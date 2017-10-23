@@ -32,8 +32,9 @@ class MedicalHistoriesController < ApplicationController
         format.html { redirect_to @medical_history, notice: 'Historial Medico creado.' }
         format.json { render :show, status: :created, location: @medical_history }
       else
-        format.html { render :new }
+        format.html { redirect_to :controller => "medical_histories", :action => "new", :id => @medical_history.patient.id }
         format.json { render json: @medical_history.errors, status: :unprocessable_entity }
+        flash[:danger] = "Llenar todos los campos vacios del tratamiento."
       end
     end
   end

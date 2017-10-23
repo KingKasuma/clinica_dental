@@ -3,7 +3,7 @@
 <%= form_for(@treatment, :html => {class: "form-horizontal", role: "form"}) do |f| %>
   <% if @treatment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@treatment.errors.count, "error") %> prohibited this treatment from being saved:</h2>
+      <h2><%= pluralize(@treatment.errors.count, "error") %> prohibidos antes de guardar:</h2>
 
       <ul>
       <% @treatment.errors.full_messages.each do |message| %>

@@ -5,7 +5,7 @@
 
   <div class="form-group">
     <div class="control-label col-md-2">
-        <%= f.label :dental_examination_id %><br>
+        <%= f.label :Examen_Dental %><br>
     </div>
     <div class="col-md-9">
         <%= f.collection_select(:dental_examination_id, DentalExamination.all, :id, :numero_diente, {:prompt=>'Seleccion numero de diente'}, class: "form-control")%>

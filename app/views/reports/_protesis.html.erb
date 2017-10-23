@@ -25,8 +25,10 @@
               <th>Protesis:</th>
               <th>Fecha Pedido:</th>
               <th>Fecha Entrega:</th>
-              <% if current_user.employee.jefe? %>
-                <th>Costo:</th>
+              <% unless current_user.employee.nil?  && current_user.patient.nil?%>
+                <% if current_user.employee.jefe? %>
+                  <th>Costo:</th>
+                <% end %>
               <% end %>
               <th>Estado:</th>
             </tr>
@@ -41,8 +43,10 @@
               <td><%= protesis.protesis %></td>
               <td><%= protesis.fecha_pedido %></td>
               <td><%= protesis.fecha_entrega %></td>
-              <% if current_user.employee.jefe? %>
-                <td><%= protesis.costo %></td>
+              <% unless current_user.employee.nil?  && current_user.patient.nil?%>
+                <% if current_user.employee.jefe? %>
+                  <td><%= protesis.costo %></td>
+                <% end %>
               <% end %>
                 <td><%= protesis.estado %></td>
 

@@ -28,8 +28,7 @@
 
                 <% if current_user.employee.nil? && current_user.patient.nil? %>
                   <td><%= link_to 'Mostrar', employee, class: "btn btn-info" %></td>
-                  <td><%= link_to 'Editar', edit_employee_path(employee), class: "btn btn-warning" %></td>
-                  <td><%= link_to 'Eliminar', employee, method: :delete, data: { confirm: 'Estas Seguro?' }, class: "btn btn-danger" %></td>
+                  <td><%= link_to 'Editar', edit_employee_path(employee), class: "btn btn-warning" %></td>                  
                 <% end %>
               </tr>
             <% end %>

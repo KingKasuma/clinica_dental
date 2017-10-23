@@ -18,9 +18,21 @@ class DebtsController < ApplicationController
       else
 
       if @paciente.account_books.present?
+        total_nuevo = @paciente.tratamientos_costo + @paciente.protesis_costo
+        total = 0
+        @paciente.account_books.each do |libro|
+          total = total + libro.debts.last.total
+        end
+        @total_nuevo = total_nuevo - total
         if @paciente.account_books.last.estado.downcase == "cancelado"
+          @account = @paciente.account_books.last
+          if @total_nuevo > 0
+            flash.now[:danger] = "Nuevas deudas."
+          else
             @account = @paciente.account_books.last
             flash.now[:success] = "Deudas canceladas al dia"
+          end
+
         else
           @account = @paciente.account_books.last
           flash.now[:danger] = "Deudas pendientes"
@@ -31,22 +43,29 @@ class DebtsController < ApplicationController
         pago = params[:pago].to_i
         if @paciente.account_books == []
           total = @paciente.tratamientos_costo + @paciente.protesis_costo
-          @saldo = total - pago
-          if @saldo == 0
-            @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
-            @account.save
-            @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id, fecha: Date.today)
-            if @debt.save
-              flash.now[:success] = "Pago realizado"
-            end
+          if pago > total
+            flash.now[:danger] = "El pago debe de ser menor que el total de la deuda"
           else
-            @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id,sucursal_id: current_user.employee.sucursal.id)
-            @account.save
-            @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id, fecha: Date.today)
-            if @debt.save
-              flash.now[:success] = "Pago realizado"
-            end
+              @saldo = total - pago
+              if @saldo == 0
+                @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
+                @account.save
+                @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id, fecha: Date.today)
+                if @debt.save
+                  flash.now[:success] = "Pago realizado"
+                end
+              else
+                @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id,sucursal_id: current_user.employee.sucursal.id)
+                @account.save
+                @debt = Debt.new(pago: pago, saldo: @saldo, total: total, account_book_id: @account.id, fecha: Date.today)
+                if @debt.save
+                  flash.now[:success] = "Pago realizado"
+                end
+              end
           end
+
+
+
         else
           total = @paciente.tratamientos_costo + @paciente.protesis_costo
           if @paciente.account_books.last.estado.downcase == "cancelado" && @paciente.accounts == total
@@ -54,39 +73,49 @@ class DebtsController < ApplicationController
           else
             if @paciente.account_books.last.estado.downcase == "cancelado"
               total_account = total - @paciente.accounts
-              saldo = total_account - pago
-              if saldo == 0
-                @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
-                @account.save
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id, fecha: Date.today)
-                if @debt.save
-                  flash.now[:success] = "Pago realizado"
-                end
+              if pago > total_account
+                flash.now[:danger] = "Pago debe de ser menor al total de la deuda."
               else
-                @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
-                @account.save
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id, fecha: Date.today)
-                if @debt.save
-                  flash.now[:success] = "Pago realizado"
+                saldo = total_account - pago
+                if saldo == 0
+                  @account = AccountBook.new(descripcion: "Ninguna", estado: "Cancelado", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
+                  @account.save
+                  @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id, fecha: Date.today)
+                  if @debt.save
+                    flash.now[:success] = "Pago realizado"
+                  end
+                else
+                  @account = AccountBook.new(descripcion: "Ninguna", estado: "Deuda", patient_id: @paciente.id, sucursal_id: current_user.employee.sucursal.id)
+                  @account.save
+                  @debt = Debt.new(pago: pago, saldo: saldo, total: total_account, account_book_id: @account.id, fecha: Date.today)
+                  if @debt.save
+                    flash.now[:success] = "Pago realizado"
+                  end
                 end
               end
+
             else
               @account = @paciente.account_books.last
               total = @account.debts.last.total
               saldo = @account.debts.last.saldo
-              saldo = saldo - pago
-              if saldo == 0
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id, fecha: Date.today)
-                if @debt.save
-                  @account.update(estado: "Cancelado")
-                  flash.now[:success] = "Pago realizado"
-                end
+              if pago > saldo
+                flash.now[:danger] = "Pago debe ser menor al total de la deuda."
               else
-                @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id, fecha: Date.today)
-                if @debt.save
-                  flash.now[:success] = "Pago realizado"
+                saldo = saldo - pago
+                if saldo == 0
+                  @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id, fecha: Date.today)
+                  if @debt.save
+                    @account.update(estado: "Cancelado")
+                    flash.now[:success] = "Pago realizado"
+                  end
+                else
+                  @debt = Debt.new(pago: pago, saldo: saldo, total: total, account_book_id: @account.id, fecha: Date.today)
+                  if @debt.save
+                    flash.now[:success] = "Pago realizado"
+                  end
                 end
               end
+
             end
           end
         end

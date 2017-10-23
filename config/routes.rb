@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     post '/diary_secretary' => 'reservations#reservacion_secretaria'
     post '/diary_secretary_especial' => 'reservations#reservacion_secretaria_especial'
     get '/atendido/:id' => 'reservations#atendido'
-    get '/atendido_especial/:id' => 'reservations#atendido_consulta_especial'
+    get '/atendido_especial/:id' => 'reservations#atendido_consulta_especial'    
   end
 
 
