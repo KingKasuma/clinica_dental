@@ -8,7 +8,6 @@ class DebtsController < ApplicationController
     @account = @paciente.account_books.last
   end
 
-
   def index
 
     if params[:CI].present?
