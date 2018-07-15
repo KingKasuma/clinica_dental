@@ -46,8 +46,11 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: onmyownway
-  socket: /var/run/mysqld/mysqld.sock
+  password: Onmyownway$777
+  #Socket para debian
+  #socket: /var/run/mysqld/mysqld.sock
+  #Socket para Rpm
+  socket: /var/lib/mysql/mysql.sock
 
 development:
   <<: *default
